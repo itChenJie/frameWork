@@ -13,10 +13,23 @@ public class CharUtils {
      * @return
      */
     public static String initialsUpperCase(char[] chars){
-        String str = String.valueOf(chars[0]).toUpperCase();
+        StringBuilder str = new StringBuilder(String.valueOf(chars[0]).toUpperCase());
         for (int i=1;i<chars.length;i++){
-            str=str+chars[i];
+            str.append(chars[i]);
         }
-        return str;
+        return str.toString();
+    }
+
+    /**
+     * 首字母小写
+     * @param chars
+     * @return
+     */
+    public static String initialsLowerCase(char[] chars){
+        StringBuilder str = new StringBuilder(String.valueOf(chars[0]).toLowerCase());
+        for (int i=1;i<chars.length;i++){
+            str.append(chars[i]);
+        }
+        return str.toString();
     }
 }

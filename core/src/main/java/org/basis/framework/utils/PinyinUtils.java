@@ -28,7 +28,7 @@ public class PinyinUtils {
      * @return
      * @throws
      */
-    public static String getShort(String pinyin) throws BadHanyuPinyinOutputFormatCombination {
+    public static String getHeadString(String pinyin) throws BadHanyuPinyinOutputFormatCombination {
         StringBuffer pybf = new StringBuffer();
         char[] arr = pinyin.toCharArray();
         for (int i = 0; i < arr.length; i++) {
