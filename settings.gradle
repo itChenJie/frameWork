@@ -1,0 +1,4 @@
+rootProject.name = 'basis-framework'
+include ":basis-core"
+
+project(':basis-core').projectDir = "$rootDir/core" as File

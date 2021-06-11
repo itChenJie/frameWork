@@ -1,0 +1,132 @@
+buildscript {
+    repositories{
+        // 配置maven仓库地址，可以配置多个
+        maven {url "http://maven.aliyun.com/nexus/content/groups/public/"}
+        // 先从本地仓库找，如果不存在再去mavenCentral中央仓库寻找
+        mavenLocal()
+        mavenCentral()
+    }
+}
+
+plugins{
+    // 插件实现类似Maven的依赖管理方式
+    id "io.spring.dependency-management" version "1.0.8.RELEASE"
+    // 插件将构建工件和构建信息部署到Artifactory，还可以从Artifactory解决构建依赖关系
+    id "com.jfrog.artifactory" version "4.14.1"
+}
+
+apply from: "$rootDir/gradle/dependencies.gradle"
+
+allprojects {
+    apply plugin: 'com.jfrog.artifactory'
+    apply plugin: 'idea'
+
+    group = 'org.basis'
+    version = (System.getenv()['CI_BUILD_TAG'] ? System.getenv()['CI_BUILD_TAG'] : "").replaceAll(/^v/, "")
+    status = 'integration'
+
+    repositories {
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+    }
+
+    configurations {
+        apply plugin: 'java'
+        apply plugin: 'idea'
+        apply plugin: 'io.spring.dependency-management'
+
+    }
+
+    idea {
+        module {
+            outputDir file("$buildDir/classes/java/main")
+            testOutputDir file("$buildDir/classes/java/test")
+            inheritOutputDirs = false
+        }
+    }
+}
+
+subprojects {
+    apply plugin: 'maven'
+    apply plugin: "jacoco"
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+    compileJava.dependsOn(processResources)
+
+    manifest {
+        attributes 'provider': 'gradle'
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:${LIB_SPRING_BOOT_VER}"
+        }
+    }
+
+    jacocoTestReport {
+        reports {
+            xml.enabled true
+            html.enabled false
+            xml.destination file("${buildDir}/reports/Coverage.xml")
+        }
+    }
+
+    test {
+        useJUnitPlatform()
+
+        ignoreFailures = true
+
+        jacoco {
+            destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
+            classDumpDir = file("$buildDir/jacoco/classpathdumps")
+        }
+    }
+
+    configurations {
+        published
+    }
+
+    task sourceJar(type: Jar) {
+        from sourceSets.main.allSource
+        archiveClassifier = 'sources'
+    }
+
+    task copyDependencies(type: Sync) {
+        from configurations.compileClasspath
+        from configurations.compileOnly
+        into 'build/dependencies'
+    }
+
+    artifactoryPublish {
+        dependsOn sourceJar
+    }
+
+    artifacts {
+        published sourceJar
+    }
+
+}
+
+artifactory {
+    contextUrl = System.getenv()['ARTIFACTORY_URL']
+    publish {
+        repository {
+            repoKey = System.getenv()['MAVEN_REPO_KEY']
+            username = System.getenv()['ARTIFACTORY_USER']
+            password = System.getenv()['ARTIFACTORY_PASS']
+        }
+        defaults {
+            publishConfigs('archives', 'published')
+            publishPom = true
+            publishIvy = false
+        }
+    }
+    clientConfig.setIncludeEnvVars(true)
+    clientConfig.setEnvVarsExcludePatterns('*password*,*secret*')
+    clientConfig.info.setBuildNumber(System.getenv()['CI_JOB_ID'])
+}
+
+

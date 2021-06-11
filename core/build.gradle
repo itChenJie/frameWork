@@ -1,0 +1,42 @@
+description = "基础架构-核心代码"
+
+configurations {
+    compile.exclude module: "tomcat-jdbc"
+}
+
+dependencyManagement {
+    dependencies {
+        dependency("com.mashape.unirest:unirest-java:${LIB_UNIREST_VER}") {
+            exclude 'org.json:json'
+            exclude 'org.apache.logging.log4j:log4j-core'
+        }
+    }
+}
+
+dependencies {
+    // spring boot
+    compile libs['springBoot']
+    // orm
+    compile libs['orm']
+    // unirest
+    compile libs['unirest']
+    // commons
+    compile libs['commons']
+    // ognl and cglib
+    compile libs['third-party']
+    compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
+    compile "org.apache.poi:poi:${LIB_POI_VER}"
+    compile "org.eclipse.jgit:org.eclipse.jgit:${LIB_ECLIPSE_JGIT_VER}"
+    compile "org.hibernate:hibernate-validator:${LIB_HIBERNATE_VALIDATOR}"
+    compile "com.google.guava:guava:${LIB_GOOGLE_GUAVA}"
+    compile "com.baomidou:mybatis-plus-generator:3.4.1"
+    // mybatis plus 自动生成实体模版引擎
+    compile 'org.apache.velocity:velocity-engine-core:2.3'
+    compile 'org.freemarker:freemarker:2.3.31'
+    compile 'com.ibeetl:beetl:3.3.2.RELEASE'
+
+    compileOnly "org.projectlombok:lombok:${LIB_LOMBOK_VER}"
+    annotationProcessor "org.projectlombok:lombok:${LIB_LOMBOK_VER}"
+    compile 'io.swagger:swagger-annotations:1.6.2'
+    testCompile libs['test']
+}

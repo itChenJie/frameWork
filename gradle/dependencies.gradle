@@ -1,0 +1,47 @@
+ext {
+
+    libs = [
+            unirest      : [
+                    "com.mashape.unirest:unirest-java:${LIB_UNIREST_VER}"
+            ],
+            springBoot   : [
+                    "org.springframework:spring-test",
+                    "org.springframework.boot:spring-boot-starter-web",
+                    "org.springframework.boot:spring-boot-starter-quartz",
+                    "org.springframework.boot:spring-boot-starter-data-jpa",
+                    "org.springframework.boot:spring-boot-starter-actuator"
+            ],
+            orm          : [
+                    "com.alibaba:druid-spring-boot-starter:${LIB_SPRING_DRUID_VER}",
+                    "org.mybatis.spring.boot:mybatis-spring-boot-starter:${LIB_SPRING_MYBATIS_VER}",
+                    "mysql:mysql-connector-java"
+            ],
+            commons      : [
+                    "org.apache.commons:commons-text:${LIB_APACHE_COMMONS_TEXT_VER}",
+                    "commons-net:commons-net:${LIB_APACHE_COMMONS_NET_VER}",
+                    "commons-beanutils:commons-beanutils:${LIB_COMMONS_BEANUTILS_VER}",
+                    "com.github.jknack:handlebars:${LIB_HANDLEBARS_VER}",
+                    "commons-io:commons-io:${LIB_COMMONS_IO_VER}",
+                    "org.apache.commons:commons-email:${LIB_APACHE_COMMONS_EMAIL_VER}",
+                    "commons-fileupload:commons-fileupload:${LIB_COMMONS_FILEUPLOAD_VER}",
+                    "org.apache.commons:commons-lang3:${LIB_APACHE_COMMONS_LANG3_VER}"
+            ],
+            'third-party': [
+                    "org.projectlombok:lombok:${LIB_LOMBOK_VER}",
+                    "cglib:cglib:${LIB_CGLIB_VER}",
+                    dependencies.create("eu.medsea.mimeutil:mime-util:${LIB_MIME_UTIL_VER}") {
+                        exclude group: "org.slf4j", module: "slf4j-log4j12"
+                    },
+                    dependencies.create("ognl:ognl:${LIB_OGNL_VER}") {
+                        exclude group: "javassist", module: "javassist"
+                    },
+                    "org.bouncycastle:bcprov-jdk16:${LIB_BCPROV_VER}",
+                    'com.belerweb:pinyin4j:2.5.1',
+                    "com.github.stuxuhai:jpinyin:${LIB_JPINYIN_VER}"
+            ],
+            test         : [
+                    "org.springframework.boot:spring-boot-starter-test",
+                    "org.codehaus.groovy:groovy-all:${LIB_GROOVY_VER}",
+            ]
+    ]
+}

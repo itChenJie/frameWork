@@ -1,0 +1,22 @@
+pay-test
+oauth-test
+.vscode
+.idea
+.gradle
+.settings
+out
+bin
+#.gradle
+backup
+# Package Files #
+*.war
+*.ear
+*.iml
+*.ipr
+*.iws
+target
+build
+classes
+LOG_PATH_IS_UNDEFINED
+rebel.xml
+rebel-remote.xml
