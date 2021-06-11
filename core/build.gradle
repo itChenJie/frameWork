@@ -38,5 +38,8 @@ dependencies {
     compileOnly "org.projectlombok:lombok:${LIB_LOMBOK_VER}"
     annotationProcessor "org.projectlombok:lombok:${LIB_LOMBOK_VER}"
     compile 'io.swagger:swagger-annotations:1.6.2'
+    compile 'com.aliyun.oss:aliyun-sdk-oss:3.8.1'
+    // ZXing支持各种条形码，二维码扫描，由多个模块组成， 而且支持PC端，移动端
+    compile 'com.google.zxing:core:3.4.0'
     testCompile libs['test']
 }

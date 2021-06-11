@@ -22,7 +22,8 @@ allprojects {
     apply plugin: 'idea'
 
     group = 'org.basis'
-    version = (System.getenv()['CI_BUILD_TAG'] ? System.getenv()['CI_BUILD_TAG'] : "").replaceAll(/^v/, "")
+    version = "1.0"
+//    version = (System.getenv()['CI_BUILD_TAG'] ? System.getenv()['CI_BUILD_TAG'] : "").replaceAll(/^v/, "")
     status = 'integration'
 
     repositories {
@@ -59,7 +60,13 @@ subprojects {
     manifest {
         attributes 'provider': 'gradle'
     }
-
+//    jar {
+//        from {
+//            //添加依懒到打包文件
+//            //configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+////            configurations.runtime.collect{zipTree(it)}
+//        }
+//    }
     dependencyManagement {
         imports {
             mavenBom "org.springframework.boot:spring-boot-dependencies:${LIB_SPRING_BOOT_VER}"

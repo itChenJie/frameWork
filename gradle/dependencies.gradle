@@ -12,7 +12,7 @@ ext {
                     "org.springframework.boot:spring-boot-starter-actuator"
             ],
             orm          : [
-                    "com.alibaba:druid-spring-boot-starter:${LIB_SPRING_DRUID_VER}",
+//                    "com.alibaba:druid-spring-boot-starter:${LIB_SPRING_DRUID_VER}",
                     "org.mybatis.spring.boot:mybatis-spring-boot-starter:${LIB_SPRING_MYBATIS_VER}",
                     "mysql:mysql-connector-java"
             ],

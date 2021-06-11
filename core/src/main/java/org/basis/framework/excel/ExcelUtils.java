@@ -1,4 +1,4 @@
-package org.basis.framework.excel.util;
+package org.basis.framework.excel;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.poi.hssf.usermodel.*;
@@ -57,7 +57,6 @@ public class ExcelUtils {
 //        }
 //        return wb;
 //    }
-
     /**
      * 设置某些列的值只能输入预制的数据,显示下拉框.
      *
