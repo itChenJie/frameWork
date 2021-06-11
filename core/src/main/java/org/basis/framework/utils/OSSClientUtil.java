@@ -18,12 +18,10 @@ import java.util.Date;
 import java.util.Random;
 
 /**
- *
- *
- * @author Stabber
- * @date 2020/2/22 13:45
- * @since 1.0.0
- */
+ * @Description OSS 工具类
+ * @Author ChenWenJie
+ * @Data 2021/6/11 2:55 下午
+ **/
 @Slf4j
 public class OSSClientUtil {
     // endpoint以杭州为例，其它region请按实际情况填写

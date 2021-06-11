@@ -5,7 +5,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 /**
- * @Description
+ * @Description 金额校验工具类
  * @Author ChenWenJie
  * @Data 2021/6/11 2:55 下午
  **/
