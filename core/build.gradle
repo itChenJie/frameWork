@@ -34,7 +34,8 @@ dependencies {
     compile 'org.apache.velocity:velocity-engine-core:2.3'
     compile 'org.freemarker:freemarker:2.3.31'
     compile 'com.ibeetl:beetl:3.3.2.RELEASE'
-
+    // mybatis-plus
+    compile 'com.baomidou:mybatis-plus-boot-starter:3.2.0'
     compileOnly "org.projectlombok:lombok:${LIB_LOMBOK_VER}"
     annotationProcessor "org.projectlombok:lombok:${LIB_LOMBOK_VER}"
     compile 'io.swagger:swagger-annotations:1.6.2'

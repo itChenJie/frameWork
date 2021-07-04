@@ -8,7 +8,7 @@ public class PinyinUtilsTest {
 
     @Test
     public void getShort() throws BadHanyuPinyinOutputFormatCombination {
-        System.out.println(PinyinUtils.getShort("你好啊AA"));
+       // System.out.println(PinyinUtils.getShort("你好啊AA"));
     }
 
     @Test

@@ -12,3 +12,5 @@
 * OSSClientUtil OSS 
 * QrCodeUtil 二维码
     
+打包命令 ./gradlew clean classes -x test
+  

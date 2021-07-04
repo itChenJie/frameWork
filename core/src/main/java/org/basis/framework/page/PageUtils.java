@@ -1,5 +1,6 @@
 package org.basis.framework.page;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -44,7 +45,14 @@ public class PageUtils implements Serializable {
         this.totalCount = totalCount;
         this.pageSize = pageSize;
         this.currPage = currPage;
+        this.totalPage = (int)Math.ceil((double)totalCount/pageSize);
     }
 
-
+    public PageUtils(IPage<?> iPage) {
+        this.list = iPage.getRecords();
+        this.totalCount = (int) iPage.getTotal();
+        this.pageSize = (int) iPage.getSize();
+        this.currPage = (int) iPage.getCurrent();
+        this.totalPage = (int) iPage.getPages();
+    }
 }
