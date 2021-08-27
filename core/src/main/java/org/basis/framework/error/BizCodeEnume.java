@@ -19,8 +19,12 @@ package org.basis.framework.error;
  * @Version 1.0
  **/
 public enum BizCodeEnume {
+    USER_UN_LOGIN(0000, "用户未登录"),
+    PARAM_VALIDATE_ERROR(0001, "参数校验错误"),
     UNKNOW_EXCEPTION(10000,"系统未知异常"),
-    VAILD_EXCEPTION(10001,"参数格式校验失败");
+    VAILD_EXCEPTION(10001,"参数格式校验失败"),
+    NO_DATA(0003, "无数据"),
+    NO_ACCOUNT(0004, "未维护用户信息，请联系管理员");
 
     private int code;
     private String msg;

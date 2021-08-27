@@ -11,7 +11,17 @@ import java.security.SignatureException;
  * @Data 2021/03/18 3:23 下午
  **/
 public class MD5Util {
-
+    private static final String charset="utf-8";
+    /**
+     * 签名字符串
+     * @param text 需要签名的字符串
+     * @param key 密钥
+     * @return 签名结果
+     */
+    public static String sign(String text, String key) {
+        text = text + key;
+        return DigestUtils.md5Hex(getContentBytes(text, charset));
+    }
     /**
      * 签名字符串
      * @param text 需要签名的字符串
