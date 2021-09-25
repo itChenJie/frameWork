@@ -37,6 +37,14 @@ public class LoginUser implements Principal {
      */
     private String name;
     /**
+     * 账号
+     */
+    private String account;
+    /**
+     * 部门id
+     */
+    private Long deptId;
+    /**
      * 称号
      */
     private String title;

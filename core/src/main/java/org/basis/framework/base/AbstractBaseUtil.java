@@ -69,11 +69,7 @@ public abstract class AbstractBaseUtil {
         return threadLocal.get();
     }
 
-    public static void setUser(LoginUser loginUser){
-        threadLocal.set(loginUser);
-    }
-
-    public abstract void setUser(Long userId);
+    protected static void setUser(LoginUser loginUser){ threadLocal.set(loginUser); }
 
     public static Long getUserId(){
         return getUser().getUid();

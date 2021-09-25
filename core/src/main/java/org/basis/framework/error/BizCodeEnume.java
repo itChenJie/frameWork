@@ -24,7 +24,8 @@ public enum BizCodeEnume {
     UNKNOW_EXCEPTION(10000,"系统未知异常"),
     VAILD_EXCEPTION(10001,"参数格式校验失败"),
     NO_DATA(0003, "无数据"),
-    NO_ACCOUNT(0004, "未维护用户信息，请联系管理员");
+    NO_ACCOUNT(0004, "未维护用户信息，请联系管理员"),
+    DEFAULT(500,"通用错误");
 
     private int code;
     private String msg;
