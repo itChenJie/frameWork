@@ -15,9 +15,9 @@ import java.util.Date;
 public abstract class AbstractBaseUtil {
     private static ThreadLocal<LoginUser> threadLocal = new ThreadLocal<>();
 
-    private static final String USER_ADMIN_TOKEN = "72CRM_USER_ADMIN_TOKEN";
+    private static final String USER_ADMIN_TOKEN = "USER_ADMIN_TOKEN";
 
-    private static final String USER_MOBILE_TOKEN = "72CRM_USER_MOBILE_TOKEN";
+    private static final String USER_MOBILE_TOKEN = "USER_MOBILE_TOKEN";
 
     /**
      * 获取当前是否是windows系统
