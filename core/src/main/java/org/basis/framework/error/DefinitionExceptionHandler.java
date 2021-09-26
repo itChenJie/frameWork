@@ -1,10 +1,10 @@
 package org.basis.framework.error;
 
-import com.aliyun.oss.ServiceException;
 import org.basis.framework.utils.R;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -29,7 +29,7 @@ public class DefinitionExceptionHandler {
     public R exception(Exception e){
         printStackTrace(e);
         e.printStackTrace();
-        logger.error("运行时常 :{}",e.getMessage());
+        logger.error("Run time exception :{}",e.getMessage());
         return R.error();
     }
 
@@ -43,7 +43,7 @@ public class DefinitionExceptionHandler {
     @ResponseBody
     public R serviceException(RRException e){
         e.printStackTrace();
-        logger.error("业务异常：code：{} mes:{}",e.getCode(),e.getMessage());
+        logger.error("Business exception：code：{} mes:{}",e.getCode(),e.getMessage());
         return R.error(e.getCode(),e.getMessage());
     }
 
@@ -56,8 +56,20 @@ public class DefinitionExceptionHandler {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ResponseBody
     public R unauthorizedException(UnauthorizedException e){
-        logger.error("未经授权异常：code：{} mes:{}",e.getCode(),e.getMessage());
+        logger.error("Unauthorized exception：code：{} mes:{}",e.getCode(),e.getMessage());
         return R.error(e.getCode(),e.getMessage());
+    }
+    /**
+     * 方法参数校验异常
+     * @param e
+     * @return
+     */
+    @ExceptionHandler({MethodArgumentNotValidException.class})
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public R constraintViolationException(MethodArgumentNotValidException e){
+        logger.error("Parameter Violation Exception :{}",e.getBindingResult().getFieldError().getDefaultMessage());
+        return R.error(BizCodeEnume.PARAM_VALIDATE_ERROR.getCode(),e.getBindingResult().getFieldError().getDefaultMessage());
     }
 
     protected void printStackTrace(Exception e){
