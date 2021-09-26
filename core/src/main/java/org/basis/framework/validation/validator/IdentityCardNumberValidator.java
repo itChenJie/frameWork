@@ -17,6 +17,7 @@ public class IdentityCardNumberValidator implements ConstraintValidator<Identity
     public void initialize(IdentityCardNumber identityCardNumber) {
     }
 
+
     @Override
     public boolean isValid(Object obj, ConstraintValidatorContext context) {
         return IdCardValidatorUtils.isValidate18Idcard(obj.toString());
