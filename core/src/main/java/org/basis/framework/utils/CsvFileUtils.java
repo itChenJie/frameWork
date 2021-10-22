@@ -1,6 +1,3 @@
-/*
- * Copyright (C) 2019 Baidu, Inc. All Rights Reserved.
- */
 package org.basis.framework.utils;
 
 import org.springframework.stereotype.Service;
@@ -12,8 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- *
+ * Csv 文件工具类
  * @author Stabber
  * @date 2019/7/8 14:26
  * @since 1.0.0

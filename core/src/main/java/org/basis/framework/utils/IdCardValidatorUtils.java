@@ -6,6 +6,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Pattern;
 
+/**
+ * @Description 身份证验证器工具类
+ * @Author ChenWenJie
+ * @Data 2020/11/20 2:55 下午
+ **/
 public class IdCardValidatorUtils {
     // 每位加权因子
     private static int power[] = {7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2};
@@ -29,9 +34,8 @@ public class IdCardValidatorUtils {
 
     /**
      * 验证所有的身份证的合法性
-     *
-     * @param idcard
-     * @return
+     * @param idcard 身份证号
+     * @return  true 合法 false 不合法
      */
     public static boolean isValidatedAllIdcard(String idcard) {
         if (idcard.length() == 15) {
@@ -42,8 +46,7 @@ public class IdCardValidatorUtils {
 
     /**
      * 将15位的身份证转成18位身份证
-     *
-     * @param idcard
+     * @param idcard 身份证号
      * @return
      */
     public static String convertIdcarBy15bit(String idcard) {
@@ -73,7 +76,6 @@ public class IdCardValidatorUtils {
 
             if (null != c) {
                 int bit[] = new int[idcard17.length()];
-
                 // 将字符数组转为整型数组
                 bit = converCharToInt(c);
                 int sum17 = 0;
@@ -85,7 +87,6 @@ public class IdCardValidatorUtils {
                 if (null == checkCode) {
                     return null;
                 }
-
                 // 将前17位与第18位校验码拼接
                 idcard17 += checkCode;
             }
@@ -96,6 +97,7 @@ public class IdCardValidatorUtils {
     }
 
     /**
+     * 判断是否是合法性的18位身份证号码
      * @param idCard
      * @return
      */
@@ -138,7 +140,6 @@ public class IdCardValidatorUtils {
 
     /**
      * 数字验证
-     *
      * @param str
      * @return
      */
@@ -148,18 +149,14 @@ public class IdCardValidatorUtils {
 
     /**
      * 将身份证的每位和对应位的加权因子相乘之后，再得到和值
-     *
      * @param bit
      * @return
      */
     public static int getPowerSum(int[] bit) {
-
         int sum = 0;
-
         if (power.length != bit.length) {
             return sum;
         }
-
         for (int i = 0; i < bit.length; i++) {
             for (int j = 0; j < power.length; j++) {
                 if (i == j) {
@@ -232,16 +229,6 @@ public class IdCardValidatorUtils {
         return a;
     }
 
-    public static void main(String[] args) {
-        String idCardForFalse = "350583199108290106";
-        String idCardForTrue = "350583197106150219";
-        if (IdCardValidatorUtils.isValidatedAllIdcard(idCardForTrue)) {
-            System.out.println("身份证校验正确");
-        } else {
-            System.out.println("身份证校验错误！");
-        }
-    }
-
     /**
      * 18位身份证号码的基本数字和位数验校
      *
@@ -250,5 +237,16 @@ public class IdCardValidatorUtils {
      */
     public boolean is18Idcard(String idCard) {
         return Pattern.matches("^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}([\\d|x|X]{1})$", idCard);
+    }
+
+
+    public static void main(String[] args) {
+        String idCardForFalse = "350583199108290106";
+        String idCardForTrue = "350583197106150219";
+        if (IdCardValidatorUtils.isValidatedAllIdcard(idCardForTrue)) {
+            System.out.println("身份证校验正确");
+        } else {
+            System.out.println("身份证校验错误！");
+        }
     }
 }

@@ -2,6 +2,7 @@ package org.basis.framework.utils;
 
 /**
  * @Description
+ * 字符工具类
  * @Author ChenWenJie
  * @Data 2021/6/4 1:58 下午
  **/

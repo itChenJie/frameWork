@@ -44,6 +44,10 @@ public class PinyinUtils {
         return pybf.toString().replaceAll("\\W", "").trim();
     }
 
+    /**
+     * 设置汉语拼音输出格式
+     * @return
+     */
     private static HanyuPinyinOutputFormat setHanyuPinyinOutputFormat() {
         HanyuPinyinOutputFormat defaultFormat = new HanyuPinyinOutputFormat();
         defaultFormat.setCaseType(HanyuPinyinCaseType.LOWERCASE);

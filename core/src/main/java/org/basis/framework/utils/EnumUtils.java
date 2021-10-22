@@ -2,10 +2,19 @@ package org.basis.framework.utils;
 
 /**
  * @Description
+ * 枚举工具类
  * @Author ChenWenJie
  * @Data 2021/6/11 2:53 下午
  **/
 public class EnumUtils {
+
+    /**
+     * 获取枚举值
+     * @param value 值 -》code
+     * @param type 枚举类型
+     * @param <T>
+     * @return
+     */
     public static  <T extends  BaseEnum>  T getEnumValue(Object value, Class<T> type) {
         if(value == null || "".equals(value)){
             return null;

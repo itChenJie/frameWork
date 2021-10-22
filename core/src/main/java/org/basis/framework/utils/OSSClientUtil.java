@@ -97,6 +97,12 @@ public class OSSClientUtil {
         return random.nextInt(10000) + System.currentTimeMillis() + substring;
     }
 
+    /**
+     *
+     * @param file
+     * @param bucketName 存储桶名称
+     * @return
+     */
     public String uploadImg2Oss(MultipartFile file,String bucketName) {
         String name = fileName(file);
         try {
@@ -112,6 +118,7 @@ public class OSSClientUtil {
      * 获得图片路径
      *
      * @param fileUrl
+     * @param privateBucketName 私有存储桶名称
      * @return
      */
     public String getImgUrl(String fileUrl, String privateBucketName) {
@@ -190,6 +197,7 @@ public class OSSClientUtil {
      * 获得url链接
      *
      * @param key
+     * @param privateBucketName 私有存储桶名称
      * @return
      */
     public String getUrl(String key,String privateBucketName) {

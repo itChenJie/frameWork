@@ -34,8 +34,7 @@ public class MoneyUtil {
     public static final String YUAN = "元";
 
     /**
-     *
-     * @Title: format
+     * 格式
      * @Description: 转换为字符串，保留两位精度
      * @param money
      * @return
@@ -56,8 +55,8 @@ public class MoneyUtil {
     }
 
     /**
-     *
-     * @param money
+     * 金额标准格式
+     * @param money 金额
      * @param accuracy  小数点后位数
      * @param stripTrailingZeros 是否删除尾部0
      * @return
@@ -70,6 +69,8 @@ public class MoneyUtil {
 
     /**
      * 将分转换成元
+     * @param amount
+     * @return
      */
     public static BigDecimal transferAmount(BigDecimal amount){
         if(amount != null){
@@ -82,6 +83,8 @@ public class MoneyUtil {
 
     /**
      * 将元转换成分
+     * @param amount
+     * @return
      */
     public static BigDecimal transferAmount2(BigDecimal amount){
         if(amount != null){

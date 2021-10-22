@@ -1,6 +1,8 @@
 package org.basis.framework.excel;
 
+import cn.hutool.core.collection.CollectionUtil;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -9,54 +11,78 @@ import org.basis.framework.error.IgnoreException;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
 /**
- * @Description 生成Excel工具类
+ * @Description Excel工具类
  * @Author ChenWenJie
  * @Data 2020/9/24 9:39 上午
  **/
 public class ExcelUtils {
+
     /**
-     * 生成导入模板
-     * @param structure
+     * 生成Excel
+     * @param head 报表头
+     * @param title 列名 Map.put("列名称"，"默认值{数组用,分割}")
+     * @param datas 数据
      * @return
      */
-//    public static HSSFWorkbook generateImportTemplate(ImportTemplateStructure structure) {
-//        HSSFWorkbook wb = new HSSFWorkbook();
-//        HSSFSheet sheet = wb.createSheet();
-//        List<ImportTemplateColumn> templateColumnList = structure.getTemplateTables().stream()
-//                .flatMap(item -> item.getTemplateColumns().stream())
-//                .collect(Collectors.toList());
-//        // 创建报表头部
-//        createNormalHead(structure.getTemplateName(), templateColumnList.size(), wb, sheet);
-//        // 创建报表列
-//        List<ImportTemplateColumn> templateColumns = templateColumnList.stream()
-//                .filter(item -> item.getSort()!=null)
-//                .sorted(Comparator.comparing(ImportTemplateColumn::getSort))
-//                .collect(Collectors.toList());
-//        Map enumMap = new HashMap();
-//        HSSFRow row = sheet.createRow(1);
-//        row.setHeight((short) 400);
-//        HSSFCellStyle cellStyle = headCellStyle(wb);
-//        for (int i = 0; i < templateColumns.size(); i++) {
-//            ImportTemplateColumn column = templateColumns.get(i);
-//            sheet.setColumnWidth(i, column.getShowName().getBytes().length * 2 * 256);
-//            if (ColumnTypeEnum.ENUM.equals(column.getColumnType())) {
-//                String collect = column.getEnumValue().stream().map(item -> item.getValue()).collect(Collectors.joining(","));
-//                enumMap.put(i, collect);
-//            }
-//            createRow(row, cellStyle, i, column.getShowName());
-//        }
-//        for (Iterator<Map.Entry<Object, String>> it = enumMap.entrySet().iterator(); it.hasNext(); ) {
-//            Map.Entry<Object, String> next = it.next();
-//            setHSSFValidation(sheet, next.getValue().split(","), 0,
-//                    Integer.MAX_VALUE, (Integer) next.getKey(), (Integer) next.getKey());
-//        }
-//        return wb;
-//    }
+    public static HSSFWorkbook createExcel(String head,Map<String,String> title,List<List<Object>> datas){
+        HSSFWorkbook wb = new HSSFWorkbook();
+        return createExcel(head, title, datas, wb, headCellStyle(wb),  titleCellStyle(wb),  dataCellStyle(wb));
+    }
+    /**
+     * 生成Excel
+     * @param head 报表头
+     * @param title 列名 Map.put("列名称"，"默认值{数组用,分割}")
+     * @param datas 数据
+     * @param wb
+     * @param headCellStyle 头样式
+     * @param titleCellStyle 标题样式
+     * @param dataCellStyle  数据列表样式
+     * @return
+     */
+    public static HSSFWorkbook createExcel(String head,Map<String,String> title,List<List<Object>> datas
+            ,HSSFWorkbook wb,HSSFCellStyle headCellStyle,HSSFCellStyle titleCellStyle
+            ,HSSFCellStyle dataCellStyle) {
+
+        HSSFSheet sheet = wb.createSheet();
+        int rownum =0;
+        // 创建报表头部
+        if (StringUtils.isNotBlank(head)){
+            createNormalHead(head, rownum,title.size()-1, sheet,headCellStyle);
+            ++rownum;
+        }
+        // 创建报表列
+        Map enumMap = new HashMap();
+        HSSFRow row = sheet.createRow(rownum);
+        row.setHeight((short) 600);
+        int i=0;
+        for (Map.Entry<String, String> entry : title.entrySet()) {
+            sheet.setColumnWidth(i,entry.getKey().getBytes(StandardCharsets.UTF_8).length * 2 * 256);
+            if (StringUtils.isNotBlank(entry.getValue()))
+                enumMap.put(i, entry.getValue());
+            createRow(row, titleCellStyle, i, entry.getKey());
+            i++;
+        }
+        for (Iterator<Map.Entry<Object, String>> it = enumMap.entrySet().iterator(); it.hasNext(); ) {
+            Map.Entry<Object, String> next = it.next();
+            setHSSFValidation(sheet, next.getValue().split(","), 0,
+                    Integer.MAX_VALUE, (Integer) next.getKey(), (Integer) next.getKey());
+        }
+        if (CollectionUtil.isNotEmpty(datas)){
+            for (List<Object> columns : datas) {
+                ++rownum;
+                HSSFRow hssfRow = sheet.createRow(rownum);
+                hssfRow.setHeight((short) 400);
+                for (int i1 = 0; i1 < columns.size(); i1++) {
+                    createRow(hssfRow, dataCellStyle, i1, String.valueOf(columns.get(i1)));
+                }
+            }
+        }
+        return wb;
+    }
     /**
      * 设置某些列的值只能输入预制的数据,显示下拉框.
      *
@@ -83,19 +109,21 @@ public class ExcelUtils {
      * 创建通用EXCEL头部
      *
      * @param headString 头部显示的字符
+     * @param rownum 行
      * @param colSum     该报表的列数
+     * @param sheet
+     * @param cellStyle
      */
-    public static void createNormalHead(String headString, int colSum, HSSFWorkbook wb, HSSFSheet sheet) {
-        HSSFRow row = sheet.createRow(0);
+    public static void createNormalHead(String headString,int rownum, int colSum, HSSFSheet sheet,HSSFCellStyle cellStyle) {
+        HSSFRow row = sheet.createRow(rownum);
         // 设置第一行
         HSSFCell cell = row.createCell(0);
-        row.setHeight((short) 600);
+        row.setHeight((short) 800);
         // 定义单元格为字符串类型 中文处理
         cell.setCellType(CellType.STRING);
         cell.setCellValue(new HSSFRichTextString(headString));
         // 指定合并区域
         sheet.addMergedRegion(new CellRangeAddress(0, (short) 0, (short) 0, (short) colSum));
-        HSSFCellStyle cellStyle = titleCellStyle(wb);
         cell.setCellStyle(cellStyle);
     }
 
@@ -128,8 +156,9 @@ public class ExcelUtils {
         cellStyle.setWrapText(true);
         // 设置单元格字体
         HSSFFont font = wb.createFont();
-        font.setFontName("宋体");
-        font.setFontHeightInPoints((short) 16);
+        font.setFontName("微软雅黑");
+        font.setFontHeightInPoints((short) 20);
+        font.setBold(true);
         cellStyle.setFont(font);
         return cellStyle;
     }
@@ -153,18 +182,61 @@ public class ExcelUtils {
         cellStyle.setLocked(true);
         // 设置单元格字体
         HSSFFont font = wb.createFont();
-        font.setFontName("宋体");
+        font.setFontName("微软雅黑");
         //设置字体大小
-        font.setFontHeightInPoints((short) 20);
+        font.setFontHeightInPoints((short) 16);
         font.setBold(true);
         cellStyle.setFont(font);
         return cellStyle;
     }
 
     /**
+     * 设置数据列样式
+     * @param wb
+     * @return
+     */
+    public static HSSFCellStyle dataCellStyle(HSSFWorkbook wb) {
+        // 定义单元格格式，添加单元格表样式，并添加到工作簿
+        HSSFCellStyle cellStyle = wb.createCellStyle();
+        // 设置单元格水平对齐类型
+        cellStyle.setAlignment(HorizontalAlignment.LEFT);
+        cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+        // 指定单元格自动换行
+        cellStyle.setWrapText(true);
+        cellStyle.setLocked(true);
+        // 设置单元格字体
+        HSSFFont font = wb.createFont();
+        font.setFontName("微软雅黑");
+        //设置字体大小
+        font.setFontHeightInPoints((short) 12);
+        cellStyle.setFont(font);
+        return cellStyle;
+    }
+
+    /**
+     * Excel解析
+     * @param inputStream
+     * @return value-》 值
+     */
+    public static List<List<Object>> analysisExcelList(InputStream inputStream){
+        List<LinkedHashMap<String, Object>>  linkedHashMaps= analysisExcel(inputStream);
+        List<List<Object>> result = new ArrayList<>();
+        if (CollectionUtil.isEmpty(linkedHashMaps))
+            return result;
+
+        for (LinkedHashMap<String, Object> linkedHashMap : linkedHashMaps) {
+            ArrayList<Object> list = new ArrayList<>();
+            for (Map.Entry<String, Object> objectEntry : linkedHashMap.entrySet()) {
+                list.add(objectEntry.getValue());
+            }
+            result.add(list);
+        }
+        return result;
+    }
+    /**
      * Excel解析
      *
-     * @param
+     * @param inputStream 文件流
      * @return key -》列下标 value-》 值
      */
     public static List<LinkedHashMap<String, Object>> analysisExcel(InputStream inputStream){

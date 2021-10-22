@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  * @Data 2021/6/11 2:50 下午
  **/
 @Slf4j
-public class AmountUtils {
+public class AmountConversionUtils {
 
     /**金额为分的格式 */
     public static final String CURRENCY_FEN_REGEX = "\\-?[0-9]+";
