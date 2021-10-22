@@ -1,19 +1,19 @@
 # framwWork
 ## 基础类
- ###注解
-org.basis.framework.annotation
-    DistributeLock   分布式锁注解
-    IgnoreSecurity   忽略登录检查
-    Permissions  权限
- ###异常类
-org.basis.framework.error
-    ExceptionControllerAdvice   异常控制器建议
-    DefinitionExceptionHandler  定义异常处理程序
-    DistributeLockException     分配锁异常
-    GlobalExceptionHandler      全局异常处理程序
-    UnauthorizedException       未经授权的异常
-    ValidationException         验证异常
-    IgnoreException             忽略异常
+ ##注解
+* org.basis.framework.annotation
+    * DistributeLock   分布式锁注解
+    * IgnoreSecurity   忽略登录检查
+    * Permissions  权限
+ ##异常类
+* org.basis.framework.error
+    * ExceptionControllerAdvice   异常控制器建议
+    * DefinitionExceptionHandler  定义异常处理程序
+    * DistributeLockException     分配锁异常
+    * GlobalExceptionHandler      全局异常处理程序
+    * UnauthorizedException       未经授权的异常
+    * ValidationException         验证异常
+    * IgnoreException             忽略异常
 
 ## 工具类
 * DateUtil                      工具类
