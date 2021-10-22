@@ -44,6 +44,7 @@
 * TokenGenerator                生成token  
 
 ##枚举
-*FilenameExtensionEnum          文件扩展名枚举
-打包命令 ./gradlew clean classes -x test
+* FilenameExtensionEnum          文件扩展名枚举
+
+###打包命令 ./gradlew clean classes -x test
   
