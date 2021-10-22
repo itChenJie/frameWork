@@ -10,17 +10,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 /**
- * @author stabber
- * @ClassName: EntityUtil
- * @Description: 自动生成MyBatis的实体类、实体映射XML文件、Mapper
- * @date 2016年4月20日 下午8:04:18
- */
+ * @Description
+ * 自动生成MyBatis的实体类、实体映射XML文件、Mapper
+ * @Author ChenWenJie
+ * @Data 2021/7/4 5:03 下午
+ **/
 public class EntityUtil {
-
-    private static final Logger logger = LoggerFactory
-            .getLogger(EntityUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(EntityUtil.class);
 
     private String moduleName ;
 //    private final String moduleName ="logistics_db";
@@ -55,7 +52,8 @@ public class EntityUtil {
 
     private PreparedStatement pstate = null;
 
-    public EntityUtil(String moduleName,String bean_package,String mapper_package,String driverName,String root,String pass,String url){
+    public EntityUtil(String moduleName,String bean_package,String mapper_package,String driverName
+            ,String root,String pass,String url){
         this.moduleName = moduleName;
         this.bean_package = bean_package;
         this.mapper_package = mapper_package;
@@ -71,8 +69,9 @@ public class EntityUtil {
     }
 
     /**
-     * @Title: getTables @Description: 获取所有的表 @return @throws
-     * SQLException @throws
+     * 获取所有的表
+     * @return
+     * @throws SQLException
      */
     private List<String> getTables() throws SQLException {
         List<String> tables = new ArrayList<String>();
@@ -108,25 +107,6 @@ public class EntityUtil {
     }
 
     private String processType(String type) {
-//        if (type.indexOf(type_char) > -1) {
-//            return "String";
-//        } else if (type.indexOf(type_bigint) > -1) {
-//            return "Long";
-//        } else if (type.indexOf(type_int) > -1) {
-//            return "Integer";
-//        } else if (type.indexOf(type_date) > -1) {
-//            return "java.util.Date";
-//        } else if (type.indexOf(type_text) > -1) {
-//            return "String";
-//        } else if (type.indexOf(type_timestamp) > -1) {
-//            return "java.util.Date";
-//        } else if (type.indexOf(type_bit) > -1) {
-//            return "Boolean";
-//        } else if (type.indexOf(type_decimal) > -1) {
-//            return "java.math.BigDecimal";
-//        } else if (type.indexOf(type_blob) > -1) {
-//            return "byte[]";
-//        }
         return ProcessType.ofDescription(type);
     }
 
@@ -134,13 +114,11 @@ public class EntityUtil {
         StringBuffer sb = new StringBuffer(field.length());
         String[] fields = field.split("_");
         String temp = null;
-        sb.append(fields[0].substring(0, 1))
-                .append(fields[0].substring(1, 2).toLowerCase())
+        sb.append(fields[0].substring(0, 1)).append(fields[0].substring(1, 2).toLowerCase())
                 .append(fields[0].substring(2));
         for (int i = 1; i < fields.length; i++) {
             temp = fields[i].trim();
-            sb.append(temp.substring(0, 1).toUpperCase())
-                    .append(temp.substring(1));
+            sb.append(temp.substring(0, 1).toUpperCase()).append(temp.substring(1));
         }
 
         return sb.toString();

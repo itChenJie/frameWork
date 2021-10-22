@@ -35,7 +35,7 @@ public enum ProcessType {
     public static String ofDescription(String description){
         Objects.requireNonNull(description);
         return Stream.of(values())
-                .filter(bean -> bean.description.contains(description))
+                .filter(bean -> description.contains(bean.description))
                 .findAny()
                 .orElseThrow(() -> new IllegalArgumentException(description + " not exists")).getCode();
     }
