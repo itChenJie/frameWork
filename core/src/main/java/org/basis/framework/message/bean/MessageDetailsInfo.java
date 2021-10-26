@@ -1,6 +1,9 @@
 package org.basis.framework.message.bean;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -11,6 +14,9 @@ import java.util.Date;
  * @Data 2021/10/22 5:57 下午
  **/
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class MessageDetailsInfo {
 
     /**
