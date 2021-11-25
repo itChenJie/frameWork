@@ -1,5 +1,6 @@
 package org.basis.framework.utils;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
@@ -7,11 +8,13 @@ import org.apache.commons.lang3.SystemUtils;
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
 
+
 /**
  * @Description Twitter的分布式自增ID雪花算法snowflake
  * @Author ChenWenJie
  * @Data 2021/5/26 4:53 下午
  **/
+@Slf4j
 public class SnowFlakeUtils {
 
     /**
@@ -44,31 +47,35 @@ public class SnowFlakeUtils {
     private final static long TIMESTMP_LEFT = DATACENTER_LEFT + DATACENTER_BIT;
 
     //数据中心
-    private long datacenterId;
+    private static long datacenterId;
     //机器标识
-    private long machineId;
+    private static long machineId;
     //序列号
-    private long sequence = 0L;
+    private static long sequence = 0L;
     //上一次时间戳
-    private long lastStmp = -1L;
+    private static long lastStmp = -1L;
 
-    public SnowFlakeUtils(long datacenterId, long machineId) {
-        if (datacenterId > MAX_DATACENTER_NUM || datacenterId < 0) {
+    /**
+     * 初始化
+     * @param datacenter 数据中心id
+     * @param machine 机器 ID
+     */
+    public static void init( long datacenter, long machine){
+        if (datacenter > MAX_DATACENTER_NUM || datacenter < 0) {
             throw new IllegalArgumentException("datacenterId can't be greater than MAX_DATACENTER_NUM or less than 0");
         }
-        if (machineId > MAX_MACHINE_NUM || machineId < 0) {
+        if (machine > MAX_MACHINE_NUM || machine < 0) {
             throw new IllegalArgumentException("machineId can't be greater than MAX_MACHINE_NUM or less than 0");
         }
-        this.datacenterId = datacenterId;
-        this.machineId = machineId;
+        datacenterId = datacenter;
+        machineId = machine;
     }
-
     /**
      * 产生下一个ID
      *
      * @return
      */
-    public synchronized long nextId() {
+    public static synchronized long nextId() {
         long currStmp = getNewstmp();
         if (currStmp < lastStmp) {
             throw new RuntimeException("Clock moved backwards.  Refusing to generate id");
@@ -94,7 +101,7 @@ public class SnowFlakeUtils {
                 | sequence;                             //序列号部分
     }
 
-    private long getNextMill() {
+    private static long getNextMill() {
         long mill = getNewstmp();
         while (mill <= lastStmp) {
             mill = getNewstmp();
@@ -102,7 +109,7 @@ public class SnowFlakeUtils {
         return mill;
     }
 
-    private long getNewstmp() {
+    private static long getNewstmp() {
         return System.currentTimeMillis();
     }
 

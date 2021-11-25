@@ -14,10 +14,10 @@ public class SnowFlakeUtilsTest {
 
     @Test
     public void autoCreateUserCouponForCode() {
-        SnowFlakeUtils snowFlake = new SnowFlakeUtils(SnowFlakeUtils.getWorkId(), SnowFlakeUtils.getDataCenterId());
-        // 1.雪花算法
-        for (int i = 0; i < 1000; i++) {
-            System.out.println(snowFlake.nextId());
-        }
+//       // SnowFlakeUtils snowFlake = new SnowFlakeUtils(SnowFlakeUtils.getWorkId(), SnowFlakeUtils.getDataCenterId());
+//        // 1.雪花算法
+//        for (int i = 0; i < 1000; i++) {
+//            System.out.println(snowFlake.nextId());
+//        }
     }
 }
