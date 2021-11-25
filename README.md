@@ -14,7 +14,10 @@
     * UnauthorizedException       未经授权的异常
     * ValidationException         验证异常
     * IgnoreException             忽略异常
-
+ ##日志监听 
+* org.basis.framework.log
+    * LoggerDisruptorQueue        日志处理队列
+    * ProcessLogAppender          控制台日志处理
 ## 工具类
 * DateUtil                      工具类
 * EntityUtil                    实体生成器
