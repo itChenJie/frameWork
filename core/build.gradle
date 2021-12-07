@@ -29,7 +29,7 @@ dependencies {
     compile "org.eclipse.jgit:org.eclipse.jgit:${LIB_ECLIPSE_JGIT_VER}"
     compile "org.hibernate:hibernate-validator:${LIB_HIBERNATE_VALIDATOR}"
     compile "com.google.guava:guava:${LIB_GOOGLE_GUAVA}"
-    compile "com.baomidou:mybatis-plus-generator:3.4.1"
+    compile "com.baomidou:mybatis-plus-generator:3.2.0"
     // mybatis plus 自动生成实体模版引擎
     compile 'org.apache.velocity:velocity-engine-core:2.3'
     compile 'org.freemarker:freemarker:2.3.31'

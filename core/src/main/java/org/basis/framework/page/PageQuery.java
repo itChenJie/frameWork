@@ -15,7 +15,7 @@ import java.util.Map;
  * @Author CWJ
  * @Data 2021/3/18 下午4:32
  **/
-public class Query<T> {
+public class PageQuery<T> {
 
     public IPage<T> getPage(Map<String, Object> params) {
         return this.getPage(params, null, false);

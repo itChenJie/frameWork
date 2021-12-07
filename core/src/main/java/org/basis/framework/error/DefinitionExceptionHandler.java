@@ -41,11 +41,27 @@ public class DefinitionExceptionHandler {
     @ExceptionHandler(RRException.class)
     @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
     @ResponseBody
-    public R serviceException(RRException e){
+    public R rrException(RRException e){
         e.printStackTrace();
         logger.error("Business exception：code：{} mes:{}",e.getCode(),e.getMessage());
         return R.error(e.getCode(),e.getMessage());
     }
+
+
+    /**
+     * 业务异常处理
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(ServiceException.class)
+    @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
+    @ResponseBody
+    public R serviceException(ServiceException e){
+        e.printStackTrace();
+        logger.error("Service exception：code：{} mes:{}",e.getCode(),e.getMessage());
+        return R.error(e.getCode(),e.getMessage());
+    }
+
 
     /**
      * 未经授权异常处理
@@ -71,6 +87,8 @@ public class DefinitionExceptionHandler {
         logger.error("Parameter Violation Exception :{}",e.getBindingResult().getFieldError().getDefaultMessage());
         return R.error(BizCodeEnume.PARAM_VALIDATE_ERROR.getCode(),e.getBindingResult().getFieldError().getDefaultMessage());
     }
+
+
 
     protected void printStackTrace(Exception e){
         e.printStackTrace();
