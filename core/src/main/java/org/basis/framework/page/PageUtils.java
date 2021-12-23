@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description
@@ -34,6 +36,8 @@ public class PageUtils implements Serializable {
 
     private List<?> list;
 
+    private Map<String,Object> map = new HashMap<>();
+
     /**
      * 分页
      * @param list
@@ -55,5 +59,17 @@ public class PageUtils implements Serializable {
         this.pageSize = (int) iPage.getSize();
         this.currPage = (int) iPage.getCurrent();
         this.totalPage = (int) iPage.getPages();
+    }
+
+    public void put(String key,Object value){
+        map.put(key,value);
+    }
+
+    public Object get(String key){
+        return map.get(key);
+    }
+
+    public Map getMap(){
+        return this.map;
     }
 }

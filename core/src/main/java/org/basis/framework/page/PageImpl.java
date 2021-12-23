@@ -18,6 +18,7 @@ public class PageImpl<T> implements IPage<T> {
     private String[] asc;
     private String[] desc;
     private boolean isDesc = true;
+    private Map<String,Object> map = new HashMap<>();
 
     public PageImpl() {
     }
@@ -223,7 +224,24 @@ public class PageImpl<T> implements IPage<T> {
         return result;
     }
 
-    public String toString() {
-        return "PageImpl(pageSize=" + this.getPageSize() + ", pageIndex=" + this.getPageIndex() + ", list=" + this.getList() + ", totalRecord=" + this.getTotalRecord() + ", asc=" + Arrays.deepToString(this.getAsc()) + ", desc=" + Arrays.deepToString(this.getDesc()) + ", isDesc=" + Arrays.deepToString(this.getDesc()) + ")";
+    public void put(String key,Object value){
+        map.put(key,value);
     }
+
+    public Object get(String key){
+        return map.get(key);
+    }
+
+    public Map getMap(){
+        return this.map;
+    }
+
+    public String toString() {
+        return "PageImpl(pageSize=" + this.getPageSize() + ", pageIndex=" + this.getPageIndex() +
+                ", list=" + this.getList() + ", totalRecord=" + this.getTotalRecord() +
+                ", asc=" + Arrays.deepToString(this.getAsc()) + ", desc=" + Arrays.deepToString(this.getDesc()) +
+                ", isDesc=" + Arrays.deepToString(this.getDesc()) + ")";
+    }
+
+
 }
