@@ -50,4 +50,5 @@
 * FilenameExtensionEnum          文件扩展名枚举
 
 ###打包命令 ./gradlew clean classes -x test
-  
+###强制更新最新依赖，清除构建并构建
+### ./gradlew clean build --refresh-dependencies
