@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.poi.ss.formula.functions.T;
 
 import java.security.Principal;
 import java.util.HashMap;
@@ -70,6 +69,14 @@ public class LoginUser implements Principal {
     private String phone;
 
     private String qq;
+
+    private String wxOpenid;
+
+    private String qqOpenid;
+
+    private String weiboOpenid;
+
+    private String token;
 
     /**
      * 权限
