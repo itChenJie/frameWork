@@ -1,6 +1,7 @@
 package org.basis.framework.utils;
 
-import org.junit.jupiter.api.Test;
+
+import org.junit.Test;
 
 public class SnowFlakeUtilsTest {
 

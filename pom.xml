@@ -11,7 +11,66 @@
 
 
   <modules>
-      <module>basis-framework</module>
+      <module>basis-core</module>
   </modules>
 
+  <properties>
+    <java.version>1.8</java.version>
+    <maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.target>8</maven.compiler.target>
+    <complier.plugin.version>3.7.0</complier.plugin.version>
+    <hutool.version>5.7.20</hutool.version>
+    <fastjson.version>1.2.72</fastjson.version>
+    <skipTests>true</skipTests>
+  </properties>
+
+
+  <dependencies>
+    <dependency>
+      <groupId>cn.hutool</groupId>
+      <artifactId>hutool-all</artifactId>
+      <version>${hutool.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>${fastjson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.12.0</version>
+    </dependency>
+  </dependencies>
+
+
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+
+
+
+  <!-- 使用分发管理将本项目打成jar包，直接上传到指定服务器（私服） -->
+  <distributionManagement>
+    <!--正式版本-->
+    <repository>
+      <!-- setting.xml中配置私服用户名和密码 -->
+      <id>nexus</id>
+      <name>Releases</name>
+      <url>http://175.24.244.56:8081/repository/maven-releases/</url>
+    </repository>
+    <!--快照版本-->
+    <snapshotRepository>
+      <!-- setting.xml中配置私服用户名和密码 -->
+      <id>nexus</id>
+      <name>Snapshots</name>
+      <url>http://175.24.244.56:8081/repository/maven-snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
 </project>

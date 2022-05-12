@@ -1,6 +1,3 @@
-/*
- * Copyright (C) 2017 Baidu, Inc. All Rights Reserved.
- */
 package org.basis.framework.jwt;
 
 import com.alibaba.fastjson.JSONObject;
@@ -69,7 +66,7 @@ public class JwtUtil {
             Jws<Claims> parseClaimsJws = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(jwt);
             //得到body后我们可以从body中获取我们需要的信息
             return JSONHelper.jsonToObject(JSONHelper.obj2JSONString(parseClaimsJws.getBody()), clazz);
-        } catch (SignatureException | MalformedJwtException e) {
+        } catch (MalformedJwtException e) {
             // jwt 解析错误
             log.warn("Jwt:{} 解析错误");
             return null;

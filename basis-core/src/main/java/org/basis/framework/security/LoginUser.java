@@ -69,6 +69,8 @@ public class LoginUser implements Principal {
      */
     private String phone;
 
+    private String qq;
+
     /**
      * 权限
      */
