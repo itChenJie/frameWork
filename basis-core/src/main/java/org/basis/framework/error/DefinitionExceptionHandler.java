@@ -28,7 +28,6 @@ public class DefinitionExceptionHandler {
     @ResponseBody
     public R exception(Exception e){
         printStackTrace(e);
-        e.printStackTrace();
         logger.error("Run time exception :{}",e.getMessage());
         return R.error();
     }
@@ -42,7 +41,7 @@ public class DefinitionExceptionHandler {
     @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
     @ResponseBody
     public R rrException(RRException e){
-        e.printStackTrace();
+        printStackTrace(e);
         logger.error("Business exception：code：{} mes:{}",e.getCode(),e.getMessage());
         return R.error(e.getCode(),e.getMessage());
     }
@@ -57,7 +56,7 @@ public class DefinitionExceptionHandler {
     @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
     @ResponseBody
     public R serviceException(ServiceException e){
-        e.printStackTrace();
+        printStackTrace(e);
         logger.error("Service exception：code：{} mes:{}",e.getCode(),e.getMessage());
         return R.error(e.getCode(),e.getMessage());
     }
@@ -72,6 +71,7 @@ public class DefinitionExceptionHandler {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ResponseBody
     public R unauthorizedException(UnauthorizedException e){
+        printStackTrace(e);
         logger.error("Unauthorized exception：code：{} mes:{}",e.getCode(),e.getMessage());
         return R.error(e.getCode(),e.getMessage());
     }
@@ -84,6 +84,7 @@ public class DefinitionExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public R constraintViolationException(MethodArgumentNotValidException e){
+        printStackTrace(e);
         logger.error("Parameter Violation Exception :{}",e.getBindingResult().getFieldError().getDefaultMessage());
         return R.error(BizCodeEnume.PARAM_VALIDATE_ERROR.getCode(),e.getBindingResult().getFieldError().getDefaultMessage());
     }
