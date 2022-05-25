@@ -70,6 +70,8 @@ public class LoginUser implements Principal {
 
     private String qq;
 
+    private String customId;
+
     private String wxOpenid;
 
     private String qqOpenid;
@@ -77,7 +79,6 @@ public class LoginUser implements Principal {
     private String weiboOpenid;
 
     private String token;
-
     /**
      * 权限
      */

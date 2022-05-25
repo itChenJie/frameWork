@@ -3,15 +3,19 @@
  */
 package org.basis.framework.utils;
 
+import cn.hutool.core.date.DateUtil;
 import com.aliyun.oss.OSSClient;
+import com.aliyun.oss.OSSException;
 import com.aliyun.oss.model.ObjectMetadata;
+import com.aliyun.oss.model.PutObjectRequest;
 import com.aliyun.oss.model.PutObjectResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.basis.framework.error.IgnoreException;
+import org.basis.framework.error.ServiceException;
 import org.basis.framework.type.FilenameExtensionEnum;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.PreDestroy;
 import java.io.*;
 import java.net.URL;
 import java.util.Date;
@@ -37,15 +41,18 @@ public class OSSClientUtil {
     private String filedir;
 
     private OSSClient ossClient;
+    // 附件最大限制 单位kb
+    private Integer maxSizekb;
 
     public OSSClientUtil(String endpoint,String accessKeyId, String accessKeySecret,String bucketName,
-                         String apkBucketName,String filedir){
+                         String apkBucketName,String filedir,Integer maxSizekb){
         this.endpoint = endpoint;
         this.accessKeyId = accessKeyId;
         this.accessKeySecret = accessKeySecret;
         this.bucketName = bucketName;
         this.apkBucketName = apkBucketName;
         this.filedir = filedir;
+        this.maxSizekb = maxSizekb == null ? (4096*4096):maxSizekb;
         ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
     }
     
@@ -53,6 +60,7 @@ public class OSSClientUtil {
     /**
      * 销毁
      */
+    @PreDestroy
     public void destory() {
         ossClient.shutdown();
     }
@@ -70,7 +78,7 @@ public class OSSClientUtil {
             String[] split = url.split("/");
             this.uploadFile2OSS(fin, split[split.length - 1], null);
         } catch (FileNotFoundException e) {
-            throw new IgnoreException("图片上传失败");
+            throw new ServiceException("图片上传失败");
         }
     }
 
@@ -82,13 +90,13 @@ public class OSSClientUtil {
             this.uploadFile2OSS(inputStream, name, null);
             return name;
         } catch (Exception e) {
-            throw new IgnoreException("图片上传失败");
+            throw new ServiceException("图片上传失败");
         }
     }
 
     private String fileName(MultipartFile file) {
-        if (file.getSize() > 4096*4096) {
-            throw new IgnoreException("上传图片大小不能超过4M！");
+        if (file.getSize() > maxSizekb) {
+            throw new ServiceException("上传图片大小不能超过"+maxSizekb+" kb");
         }
         String originalFilename = file.getOriginalFilename();
         assert originalFilename != null;
@@ -110,7 +118,7 @@ public class OSSClientUtil {
             this.uploadFile2OSS(inputStream, name, bucketName);
             return name;
         } catch (Exception e) {
-            throw new IgnoreException("图片上传失败");
+            throw new ServiceException("图片上传失败");
         }
     }
 
@@ -124,7 +132,7 @@ public class OSSClientUtil {
     public String getImgUrl(String fileUrl, String privateBucketName) {
         if (StringUtils.isNotEmpty(fileUrl)) {
             String[] split = fileUrl.split("/");
-            return this.getUrl(this.filedir + split[split.length - 1], privateBucketName);
+            return this.getUrl(dir(filedir)+ split[split.length - 1], privateBucketName);
         }
         return null;
     }
@@ -147,7 +155,7 @@ public class OSSClientUtil {
             objectMetadata.setContentType(getContentType(fileName.substring(fileName.lastIndexOf("."))));
             objectMetadata.setContentDisposition("inline;filename=" + fileName);
             //上传文件
-            PutObjectResult putResult = ossClient.putObject(StringUtils.isNotBlank(privateBucketName)?privateBucketName:bucketName, filedir + fileName, instream, objectMetadata);
+            PutObjectResult putResult = ossClient.putObject(StringUtils.isNotBlank(privateBucketName)?privateBucketName:bucketName, dir(filedir) + fileName, instream, objectMetadata);
             ret = putResult.getETag();
         } catch (IOException e) {
             log.error(e.getMessage(), e);
@@ -179,7 +187,7 @@ public class OSSClientUtil {
             this.uploadFile2OSS(inputStream, name, apkBucketName);
             return name;
         } catch (Exception e) {
-            throw new IgnoreException("apk上传失败");
+            throw new ServiceException("apk上传失败");
         }
     }
 
@@ -209,5 +217,37 @@ public class OSSClientUtil {
             return url.toString();
         }
         return null;
+    }
+
+    /**
+     * 附件上传
+     * @param instream
+     * @param fileName
+     * @return url
+     */
+    public String uploadFile(InputStream instream, String fileName){
+       try {
+           String path = dir(filedir)+fileName;
+           PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, path, instream);
+           ossClient.putObject(putObjectRequest);
+           return ("https://"+bucketName+"."+endpoint+"/"+path);
+       }catch (OSSException oe){
+            throw new ServiceException("oss 文件上传失败！");
+       }finally {
+           if (instream!=null){
+               try {
+                   instream.close();
+               } catch (IOException e) {
+                   e.printStackTrace();
+               }
+           }
+       }
+    }
+
+    public String dir(String filedir){
+        if (StringUtils.isNotBlank(filedir)){
+            return filedir+"/";
+        }
+        return DateUtil.format(new Date(), "yyyyMMdd")+"/";
     }
 }

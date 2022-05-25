@@ -45,6 +45,7 @@
 * ReflectionInvokeUtils         反射调用工具类
 * SnowFlakeUtils                Twitter的分布式自增ID雪花算法snowflake
 * TokenGenerator                生成token  
+* BarCodeUtil                   条形码生成器
 
 ##枚举
 * FilenameExtensionEnum          文件扩展名枚举
