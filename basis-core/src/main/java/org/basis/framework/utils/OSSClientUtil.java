@@ -28,9 +28,7 @@ import java.util.Random;
  **/
 @Slf4j
 public class OSSClientUtil {
-    // endpoint以杭州为例，其它region请按实际情况填写
     private String endpoint;
-    // accessKey
     private String accessKeyId;
     private String accessKeySecret ;
     //空间
@@ -39,7 +37,6 @@ public class OSSClientUtil {
     public final String apkBucketName ;
     //文件存储目录
     private String filedir;
-
     private OSSClient ossClient;
     // 附件最大限制 单位kb
     private Integer maxSizekb;
@@ -66,34 +63,44 @@ public class OSSClientUtil {
     }
 
     /**
-     * 上传图片
+     * 通过网址上传图片
      *
      * @param url
+     * @return url
      */
-    public void uploadImg2Oss(String url) {
+    public void uploadImgByUrl(String url) {
         File fileOnServer = new File(url);
         FileInputStream fin;
         try {
             fin = new FileInputStream(fileOnServer);
             String[] split = url.split("/");
-            this.uploadFile2OSS(fin, split[split.length - 1], null);
+            this.uploadFileByStream(fin, split[split.length - 1], null);
         } catch (FileNotFoundException e) {
             throw new ServiceException("图片上传失败");
         }
     }
 
-
-    public String uploadImg2Oss(MultipartFile file) {
+    /**
+     * 通过附件上传图片
+     * @param file
+     * @return
+     */
+    public String uploadImgByFile(MultipartFile file) {
         String name = fileName(file);
         try {
             InputStream inputStream = file.getInputStream();
-            this.uploadFile2OSS(inputStream, name, null);
+            this.uploadFileByStream(inputStream, name, null);
             return name;
         } catch (Exception e) {
             throw new ServiceException("图片上传失败");
         }
     }
 
+    /**
+     * 或者附件名称
+     * @param file
+     * @return
+     */
     private String fileName(MultipartFile file) {
         if (file.getSize() > maxSizekb) {
             throw new ServiceException("上传图片大小不能超过"+maxSizekb+" kb");
@@ -106,16 +113,16 @@ public class OSSClientUtil {
     }
 
     /**
-     *
+     * 通过文件和存储桶上传图片
      * @param file
      * @param bucketName 存储桶名称
      * @return
      */
-    public String uploadImg2Oss(MultipartFile file,String bucketName) {
+    public String uploadImgByFileAndBaycket(MultipartFile file,String bucketName) {
         String name = fileName(file);
         try {
             InputStream inputStream = file.getInputStream();
-            this.uploadFile2OSS(inputStream, name, bucketName);
+            this.uploadFileByStream(inputStream, name, bucketName);
             return name;
         } catch (Exception e) {
             throw new ServiceException("图片上传失败");
@@ -132,7 +139,7 @@ public class OSSClientUtil {
     public String getImgUrl(String fileUrl, String privateBucketName) {
         if (StringUtils.isNotEmpty(fileUrl)) {
             String[] split = fileUrl.split("/");
-            return this.getUrl(dir(filedir)+ split[split.length - 1], privateBucketName);
+            return this.getTimeBarUrl(dir(filedir)+ split[split.length - 1], privateBucketName);
         }
         return null;
     }
@@ -144,7 +151,7 @@ public class OSSClientUtil {
      * @param fileName 文件名称 包括后缀名
      * @return 出错返回"" ,唯一MD5数字签名
      */
-    public String uploadFile2OSS(InputStream instream, String fileName,String privateBucketName) {
+    public String uploadFileByStream(InputStream instream, String fileName,String privateBucketName) {
         String ret = "";
         try {
             //创建上传Object的Metadata
@@ -170,27 +177,6 @@ public class OSSClientUtil {
         }
         return ret;
     }
-
-    /**
-     * 上传到OSS服务器  如果同名文件会覆盖服务器上的
-     *
-     * @return 出错返回"" ,唯一MD5数字签名
-     */
-    public String uploadApk2OSS(MultipartFile file) {
-        String originalFilename = file.getOriginalFilename();
-        assert originalFilename != null;
-        String substring = originalFilename.substring(originalFilename.lastIndexOf(".")).toLowerCase();
-        Random random = new Random();
-        String name = random.nextInt(10000) + System.currentTimeMillis() + substring;
-        try {
-            InputStream inputStream = file.getInputStream();
-            this.uploadFile2OSS(inputStream, name, apkBucketName);
-            return name;
-        } catch (Exception e) {
-            throw new ServiceException("apk上传失败");
-        }
-    }
-
     /**
      * Description: 判断OSS服务文件上传时文件的contentType
      *
@@ -208,7 +194,7 @@ public class OSSClientUtil {
      * @param privateBucketName 私有存储桶名称
      * @return
      */
-    public String getUrl(String key,String privateBucketName) {
+    public String getTimeBarUrl(String key,String privateBucketName) {
         // 设置URL过期时间为10年  3600l* 1000*24*365*10
         Date expiration = new Date(System.currentTimeMillis() + 3600L * 1000 * 24 * 365 * 10);
         // 生成URL
@@ -219,18 +205,39 @@ public class OSSClientUtil {
         return null;
     }
 
+
+    /**
+     * 上传到OSS服务器  如果同名文件会覆盖服务器上的
+     *
+     * @return 出错返回"" ,唯一MD5数字签名
+     */
+    public String uploadByFile(MultipartFile file) {
+        String originalFilename = file.getOriginalFilename();
+        assert originalFilename != null;
+        String substring = originalFilename.substring(originalFilename.lastIndexOf(".")).toLowerCase();
+        Random random = new Random();
+        String name = random.nextInt(10000) + System.currentTimeMillis() + substring;
+        try {
+            InputStream inputStream = file.getInputStream();
+            this.uploadFileByStream(inputStream, name, apkBucketName);
+            return name;
+        } catch (Exception e) {
+            throw new ServiceException("apk上传失败");
+        }
+    }
+
     /**
      * 附件上传
      * @param instream
      * @param fileName
      * @return url
      */
-    public String uploadFile(InputStream instream, String fileName){
+    public String uploadByFile(InputStream instream, String fileName){
        try {
            String path = dir(filedir)+fileName;
            PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, path, instream);
            ossClient.putObject(putObjectRequest);
-           return ("https://"+bucketName+"."+endpoint+"/"+path);
+           return getUrl(path);
        }catch (OSSException oe){
             throw new ServiceException("oss 文件上传失败！");
        }finally {
@@ -242,6 +249,10 @@ public class OSSClientUtil {
                }
            }
        }
+    }
+
+    public String getUrl(String path){
+        return "https://"+bucketName+"."+endpoint+"/"+path;
     }
 
     public String dir(String filedir){
