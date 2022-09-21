@@ -1,11 +1,11 @@
 # framwWork
 ## 基础类
- ##注解
+ ### 注解
 * org.basis.framework.annotation
     * DistributeLock   分布式锁注解
     * IgnoreSecurity   忽略登录检查
     * Permissions  权限
- ##异常类
+ ### 异常类
 * org.basis.framework.error
     * ExceptionControllerAdvice   异常控制器建议
     * DefinitionExceptionHandler  定义异常处理程序
@@ -14,7 +14,7 @@
     * UnauthorizedException       未经授权的异常
     * ValidationException         验证异常
     * IgnoreException             忽略异常
- ##日志监听 
+ ### 日志监听 
 * org.basis.framework.log
     * LoggerDisruptorQueue        日志处理队列
     * ProcessLogAppender          控制台日志处理
@@ -37,7 +37,6 @@
 * DistanceCalculationUtils      距离计算
 * EnumUtils                     枚举工具类
 * IdCardValidatorUtils          身份证验证器工具类
-* MD5Util                       MD5签名处理工具类
 * MoneyUtil                     金额校验工具类
 * OSSClientUtil                 OSS工具类 
 * PinyinUtils                   汉字转拼音工具
@@ -46,10 +45,14 @@
 * SnowFlakeUtils                Twitter的分布式自增ID雪花算法snowflake
 * TokenGenerator                生成token  
 * BarCodeUtil                   条形码生成器
+* MD5Util                       MD5签名处理工具类
+* AsymmetricEncryptUtil         非对称加密
+* SM2EncryptUtil                SM2加密
+* SymmetryEncryptUtil           对称加密
 
-##枚举
+### 枚举
 * FilenameExtensionEnum          文件扩展名枚举
 
-###打包命令 ./gradlew clean classes -x test
-###强制更新最新依赖，清除构建并构建
+### 打包命令 ./gradlew clean classes -x test
+### 强制更新最新依赖，清除构建并构建
 ### ./gradlew clean build --refresh-dependencies

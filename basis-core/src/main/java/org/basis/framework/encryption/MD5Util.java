@@ -1,4 +1,4 @@
-package org.basis.framework.utils;
+package org.basis.framework.encryption;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -19,8 +19,7 @@ public class MD5Util {
      * @return 签名结果
      */
     public static String sign(String text, String key) {
-        text = text + key;
-        return DigestUtils.md5Hex(getContentBytes(text, charset));
+        return sign(text,key,charset);
     }
     /**
      * 签名字符串
@@ -35,7 +34,7 @@ public class MD5Util {
     }
 
     /**
-     * 签名字符串
+     * 签名字符串 校验
      * @param text 需要签名的字符串
      * @param sign 签名结果
      * @param key 密钥

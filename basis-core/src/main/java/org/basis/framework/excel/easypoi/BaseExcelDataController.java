@@ -26,6 +26,7 @@ import java.util.List;
 public class BaseExcelDataController {
 
     /**
+     * 表格下载
      * 最终设置的response header是这样:
      * Content-Disposition: attachment;
      * filename="encoded_text";
