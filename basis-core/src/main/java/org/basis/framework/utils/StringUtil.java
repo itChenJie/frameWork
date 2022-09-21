@@ -3,15 +3,20 @@ package org.basis.framework.utils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @Description 字符串工具类
  * @Author ChenWenJie
  * @Data 2020/11/21 3:23 下午
  **/
-public abstract class StringUtil {
+public class StringUtil {
 
     private static final Log log = LogFactory.getLog(StringUtil.class);
 
@@ -51,7 +56,11 @@ public abstract class StringUtil {
         if (isEmpty(str)){
             throw new NullPointerException("str is null");
         }
-        // 正则匹配
+        Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
+        Matcher m = p.matcher(str);
+        if (m.find()) {
+            return true;
+        }
         return false;
     }
 
@@ -80,8 +89,10 @@ public abstract class StringUtil {
      */
     public static int length(String str){return str.replaceAll("[^\\x00-\\xff]", "rr").length();}
 
-    public static boolean isBlank(Object s) {
-        return (s == null) || (nullValue(s).trim().length() == 0);
+    public static boolean isNotBlank(String str){return !isBlank(str);}
+
+    public static boolean isBlank(String str) {
+        return (str == null) || (nullValue(str).trim().length() == 0);
     }
     /**
      * 判断对象是否为空，如果为空返回空字符，如果不为空，返回该字符串的toString字符串
@@ -174,7 +185,30 @@ public abstract class StringUtil {
         return list;
     }
 
+    public static String generateUUID() {
+        String uuid = UUID.randomUUID().toString();
+        return uuid.replaceAll("-", "");
+    }
 
+    /**
+     * 字符串匹配
+     * @param str
+     * @param regex
+     * @return
+     */
+    public static boolean matching(String str,String regex) {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher m = pattern.matcher(str);
+        return m.matches();
+    }
 
+    public static String urlEncode(String url){
+        try {
+            return URLEncoder.encode(url, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
 

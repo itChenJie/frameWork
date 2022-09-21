@@ -9,11 +9,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * @Description 自定义手机号约束注解关联验证器
  * @Author ChenWenJie
- * @Classname PhoneValidator
- * Describe: 自定义手机号约束注解关联验证器
- * @Date 2020/4/18 15:15
- */
+ * @Data 2021/9/26 3:29 下午
+ **/
 public class PhoneValidator implements ConstraintValidator<Phone,String> {
 
     @Override

@@ -28,11 +28,11 @@ public class EnumUtils {
     }
 
     /**
-     * @Title: getEnumValueIngoreType
-     * @Description: 忽略枚举的code属性类型,统一做string处理
-     * @param
+     * 忽略枚举的code属性类型,统一做string处理
+     * @param value
+     * @param type
      * @return
-     * @throws
+     * @param <T>
      */
     public static  <T extends BaseEnum>  T getEnumValueIngoreType(Object value, Class<T> type) {
         if(value == null || "".equals(value)){

@@ -59,7 +59,7 @@ public abstract class AbstractBaseUtil {
         return DateUtil.format(new Date(), "yyyyMMdd");
     }
 
-    //FIXME 如果获取的地址不正确,直接返回一个固定地址也可以
+
     public static String getIpAddress() {
         return "https://crm.food-chain.com/";
 

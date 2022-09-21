@@ -6,7 +6,6 @@ import java.util.regex.Pattern;
  * 验证常量定义类
  */
 public class RegexpConstant {
-    // 匹配空行的正则表达式：\n[\s| ]*\r
     private RegexpConstant() {
     }
 

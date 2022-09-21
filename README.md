@@ -45,6 +45,7 @@
 * SnowFlakeUtils                Twitter的分布式自增ID雪花算法snowflake
 * TokenGenerator                生成token  
 * BarCodeUtil                   条形码生成器
+* BigDecimalUtil                BigDecimal类型操作类
 * MD5Util                       MD5签名处理工具类
 * AsymmetricEncryptUtil         非对称加密
 * SM2EncryptUtil                SM2加密

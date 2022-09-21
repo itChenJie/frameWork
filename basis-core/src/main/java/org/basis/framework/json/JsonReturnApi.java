@@ -9,33 +9,19 @@ import lombok.Data;
  **/
 @Data
 public class JsonReturnApi<T> {
-
     public static final Integer SUCCESS = 1;
     public static final Integer ERROR = 0;
-
     /**
-     * @Fields status : 状态值，1表示成功
+     * 1表示成功
      */
     private int status = 1; // 默认为1
 
-    /**
-     * @Fields errorCode : 错误码。
-     */
     private String errorCode;
 
-    /**
-     * @Fields msg : 错误信息
-     */
     private String msg = "success";
 
-    /**
-     * @Fields requestId : 原请求id，错误时设置
-     */
     private String requestId;
 
-    /**
-     * @Fields result : 具体结果。失败时可不设置
-     */
     private T result;
 
 
