@@ -18,6 +18,10 @@
 * org.basis.framework.log
     * LoggerDisruptorQueue        日志处理队列
     * ProcessLogAppender          控制台日志处理
+
+## 测试工具 test
+* BaseTest mvc测试基类
+* BaseServiceTest service测试基类 
 ## 工具类
 * DateUtil                      工具类
 * EntityUtil                    实体生成器

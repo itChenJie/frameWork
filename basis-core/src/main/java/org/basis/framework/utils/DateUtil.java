@@ -8,6 +8,10 @@ import org.basis.framework.utils.regexp.RegexpUtil;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -633,6 +637,26 @@ public class DateUtil{
             }
         }
     }
+
+
+    /**
+     * 转换日期为字符串
+     *
+     * @param date
+     * @return
+     */
+    public static String formatTime(LocalDateTime date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(yyyy_MM_dd_HH_mm_ss);
+        String formatDateStr = date.format(formatter);
+        return formatDateStr;
+    }
+
+    public static LocalDateTime UDateToLocalDateTime(Date date) {
+        Instant instant = date.toInstant();
+        ZoneId zone = ZoneId.systemDefault();
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
+        return localDateTime;
+    }
 }
 class DateFormatCache {
 
@@ -660,4 +684,5 @@ class DateFormatCache {
     public Date parse(String s) throws ParseException {
         return this.format.parse(s);
     }
+
 }

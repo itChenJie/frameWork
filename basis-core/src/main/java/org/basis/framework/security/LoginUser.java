@@ -80,6 +80,10 @@ public class LoginUser implements Principal {
 
     private String token;
     /**
+     * 角色
+     */
+    private Integer role;
+    /**
      * 权限
      */
     private List<String> authoritys;

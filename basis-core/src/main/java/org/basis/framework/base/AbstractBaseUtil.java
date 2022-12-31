@@ -35,7 +35,7 @@ public abstract class AbstractBaseUtil {
      * @return 加密后的字符串
      */
     public static String sign(String key, String salt) {
-        return SecureUtil.md5(key.concat("erp").concat(salt));
+        return SecureUtil.md5(key.concat(salt));
     }
 
     /**
