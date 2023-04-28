@@ -18,7 +18,14 @@
 * org.basis.framework.log
     * LoggerDisruptorQueue        日志处理队列
     * ProcessLogAppender          控制台日志处理
-
+  ### 识别
+* org.basis.framework.Identify
+    * IdentifyPDFProperties       pdf识别 规则配置
+    * IdentifyRegexConfig         pdf识别 规则
+    * PdfBoxKeyWordPosition       Pdf 获取关键字位置
+    * PdfIdentifyConfigUtil       加载pdf识别 规则配置
+    * PdfIdentifyUtil             pdf识别 工具类
+    * RegexConfig
 ## 测试工具 test
 * BaseTest mvc测试基类
 * BaseServiceTest service测试基类 

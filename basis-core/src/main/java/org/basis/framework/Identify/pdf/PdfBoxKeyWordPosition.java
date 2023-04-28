@@ -1,4 +1,4 @@
-package org.basis.framework.Identify;
+package org.basis.framework.Identify.pdf;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -7,19 +7,36 @@ import org.apache.pdfbox.text.TextPosition;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
- 
+
+/**
+ * @Description  Pdf 获取关键字位置
+ * @Author ChenWenJie
+ * @Data 2023/04/28 2:55 下午
+ **/
 public class PdfBoxKeyWordPosition extends PDFTextStripper {
- 
-	//关键字字符数组
+
+	/**
+	 * 关键字字符数组
+	 */
 	private char[] key;
-	//PDF文件路径
+	/**
+	 * PDF文件路径
+	 */
 	private String pdfPath;
-	//坐标信息集合
+	/**
+	 * 坐标信息集合
+	 */
 	private List<float[]> list = new ArrayList<float[]>();
-	//当前页信息集合
+	/**
+	 * 当前页信息集合
+	 */
 	private List<float[]> pagelist = new ArrayList<float[]>();
- 
-	//有参构造方法
+
+	/**
+	 * 有参构造方法
+	 * @param keyWords
+	 * @throws IOException
+	 */
 	public PdfBoxKeyWordPosition(String keyWords) throws IOException {
 		super();
 		super.setSortByPosition(true);
@@ -51,7 +68,10 @@ public class PdfBoxKeyWordPosition extends PDFTextStripper {
 		this.document = document;
 	}
 
-	//获取坐标信息
+	/**
+	 * 获取坐标信息
+	 * @return
+	 */
 	public List<float[]> getCoordinate(){
 		try {
 			int pages = document.getNumberOfPages();
@@ -77,7 +97,12 @@ public class PdfBoxKeyWordPosition extends PDFTextStripper {
  
 	private int foundIndex = 0;
 	private List<TextPosition> foundPositon = new ArrayList<>();
-	//获取坐标信息
+
+	/**
+	 * 获取坐标信息
+	 * @param string
+	 * @param textPositions
+	 */
 	@Override
 	protected void writeString(String string, List<TextPosition> textPositions){
 		for (int i = 0; i < textPositions.size(); i++) {
