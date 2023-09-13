@@ -1,7 +1,5 @@
 package org.basis.framework.error;
 
-import org.basis.framework.annotation.Permissions;
-
 /**
  * @Annotation
  *  * 错误码和错误信息定义类

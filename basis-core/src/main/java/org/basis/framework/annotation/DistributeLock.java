@@ -25,6 +25,12 @@ public @interface DistributeLock {
      * 超时重试次数
      */
     int tryCount() default 3;
+
+    /**
+     * 超时重试等待时间 单位毫秒
+     * @return
+     */
+    long tryCountWaitTime() default 5000l;
     /**
      * @author 获取锁的等待时间(毫秒)
      */
