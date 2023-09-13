@@ -26,6 +26,11 @@
     * PdfIdentifyConfigUtil       加载pdf识别 规则配置
     * PdfIdentifyUtil             pdf识别 工具类
     * RegexConfig
+ ### 切面类
+* org.basis.framework.aspect
+    * ApiLogAop Controller 参数打印 连接 log 注解
+    * DistributeLockAspect Aop的形式使用分布式锁
+    * SqlSaveAndUpdateContentFillingAspect 新增、编辑 实体类基础属性字段赋值
 ## 测试工具 test
 * BaseTest mvc测试基类
 * BaseServiceTest service测试基类 
