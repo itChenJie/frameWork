@@ -1,5 +1,6 @@
 package org.basis.framework.encryption;
 
+import org.basis.framework.error.BizCodeEnume;
 import org.basis.framework.error.ServiceException;
 import org.bouncycastle.asn1.gm.GMNamedCurves;
 import org.bouncycastle.asn1.x9.X9ECParameters;
@@ -52,7 +53,7 @@ public class SM2EncryptUtil {
             return kpg.generateKeyPair();
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("生成密钥 error");
+            throw new ServiceException("SM2 生成密钥 error",BizCodeEnume.ENCIPHER_ERROR.getCode());
         }
     }
 
@@ -99,7 +100,7 @@ public class SM2EncryptUtil {
             arrayOfBytes = sm2Engine.processBlock(in, 0, in.length);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("SM2加密异常！");
+            throw new ServiceException(BizCodeEnume.ENCRYPT_ERROR);
         }
         //将加密后的字节串转换为十六进制字符串
         return Hex.toHexString(arrayOfBytes);
@@ -149,7 +150,7 @@ public class SM2EncryptUtil {
             result = new String(arrayOfBytes, "utf-8");
         } catch (Exception e) {
             e.printStackTrace();
-            throw new ServiceException("SM2解密异常！");
+            throw new ServiceException(BizCodeEnume.DECRYPT_ERROR);
         }
         return result;
     }

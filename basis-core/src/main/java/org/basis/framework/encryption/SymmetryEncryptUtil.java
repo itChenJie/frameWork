@@ -1,6 +1,7 @@
 package org.basis.framework.encryption;
 
 import org.apache.commons.codec.binary.Base64;
+import org.basis.framework.error.BizCodeEnume;
 import org.basis.framework.error.ServiceException;
 
 import javax.crypto.Cipher;
@@ -68,7 +69,7 @@ public class SymmetryEncryptUtil {
             return Base64.encodeBase64String(result);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new ServiceException("加密 error ");
+            throw new ServiceException("对称加密 加密 error ", BizCodeEnume.ENCIPHER_ERROR.getCode());
         }
     }
 
@@ -101,7 +102,7 @@ public class SymmetryEncryptUtil {
             return new String(result, StandardCharsets.UTF_8);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new ServiceException("解密 error");
+            throw new ServiceException("对称加密 解密 error",BizCodeEnume.ENCIPHER_ERROR.getCode());
         }
     }
 
@@ -128,7 +129,7 @@ public class SymmetryEncryptUtil {
             return byteToHexString(b);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-            throw new ServiceException("加密算法不存在");
+            throw new ServiceException("对称加密 加密算法不存在",BizCodeEnume.ENCIPHER_ERROR.getCode());
         }
     }
 

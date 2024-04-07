@@ -1,9 +1,11 @@
 package org.basis.framework.encryption;
 
 import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
 
@@ -13,6 +15,20 @@ import java.util.Base64;
  * @Data 2023/11/15 2:34 下午
  **/
 public class AESUtil {
+
+    /**
+     * 生成密钥
+     * @return
+     * @throws NoSuchAlgorithmException
+     */
+    public static String generateAESKey() throws NoSuchAlgorithmException {
+        KeyGenerator keyGen = KeyGenerator.getInstance("AES");
+        // 初始化 KeyGenerator，指定密钥长度，默认为 128 位
+        keyGen.init(128);
+        SecretKey secretKey = keyGen.generateKey();
+        String base64Key = java.util.Base64.getEncoder().encodeToString(secretKey.getEncoded());
+        return base64Key;
+    }
 
     /**
      * 生成密钥对象
@@ -77,5 +93,13 @@ public class AESUtil {
             throw new RuntimeException("AES解密失败！");
         }
         return new String(decryptedBytes);
+    }
+
+
+    public static void main(String[] args) throws NoSuchAlgorithmException {
+        String base64Key = generateAESKey();
+        String encrypt = encrypt("", base64Key);
+        System.out.println(encrypt);
+        System.out.println(decrypt(encrypt,base64Key));
     }
 }

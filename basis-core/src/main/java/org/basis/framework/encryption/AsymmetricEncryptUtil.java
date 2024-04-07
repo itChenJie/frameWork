@@ -1,6 +1,7 @@
 package org.basis.framework.encryption;
 
 import org.apache.commons.codec.binary.Base64;
+import org.basis.framework.error.BizCodeEnume;
 import org.basis.framework.error.ServiceException;
 
 import javax.crypto.Cipher;
@@ -87,7 +88,7 @@ public class AsymmetricEncryptUtil {
             keyMap.put(PRIVATE_KEY, privateKey);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-            throw new ServiceException("生成公钥和私钥失败,算法不存在");
+            throw new ServiceException("生成公钥和私钥失败,算法不存在",BizCodeEnume.ENCIPHER_ERROR.getCode());
         }
         return keyMap;
     }
@@ -138,7 +139,7 @@ public class AsymmetricEncryptUtil {
             return Base64.encodeBase64String(encryptedData);
         }catch (Exception e){
             e.printStackTrace();
-            throw new ServiceException("公钥加密失败！");
+            throw new ServiceException(BizCodeEnume.ENCRYPT_ERROR);
         }
     }
 
@@ -152,6 +153,7 @@ public class AsymmetricEncryptUtil {
     public static String decryptByPrivateKey(String data, String privateKey){
         return decryptByPrivateKey(data,privateKey,KEY_ALGORITHM);
     }
+
     /**
      * 私钥解密
      *
@@ -187,7 +189,7 @@ public class AsymmetricEncryptUtil {
             return new String(decryptedData);
         }catch (Exception e){
             e.printStackTrace();
-            throw new ServiceException("私钥解密失败！");
+            throw new ServiceException(BizCodeEnume.DECRYPT_ERROR);
         }
     }
 
@@ -239,7 +241,7 @@ public class AsymmetricEncryptUtil {
             return Base64.encodeBase64String(encryptedData);
         }catch (Exception e){
             e.printStackTrace();
-            throw new ServiceException("私钥加密失败！");
+            throw new ServiceException(BizCodeEnume.ENCRYPT_ERROR);
         }
     }
 
@@ -289,7 +291,7 @@ public class AsymmetricEncryptUtil {
            return new String(decryptedData);
        }catch (Exception e){
            e.printStackTrace();
-           throw new ServiceException("解密失败！");
+           throw new ServiceException(BizCodeEnume.DECRYPT_ERROR);
        }
     }
 
@@ -327,16 +329,16 @@ public class AsymmetricEncryptUtil {
             return Base64.encodeBase64String(signature.sign());
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-            throw new ServiceException("密钥算法不存在！");
+            throw new ServiceException("密钥算法不存在！",BizCodeEnume.ENCIPHER_ERROR.getCode());
         } catch (InvalidKeySpecException e) {
             e.printStackTrace();
-            throw new ServiceException("无效的密钥规范！");
+            throw new ServiceException("无效的密钥规范！",BizCodeEnume.ENCIPHER_ERROR.getCode());
         } catch (SignatureException e) {
             e.printStackTrace();
-            throw new ServiceException("签名异常！");
+            throw new ServiceException("签名异常！",BizCodeEnume.ENCIPHER_ERROR.getCode());
         } catch (InvalidKeyException e) {
             e.printStackTrace();
-            throw new ServiceException("无效key异常！");
+            throw new ServiceException("无效key异常！",BizCodeEnume.ENCIPHER_ERROR.getCode());
         }
     }
 
@@ -356,16 +358,16 @@ public class AsymmetricEncryptUtil {
             return signature.verify(Base64.decodeBase64(sign));
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-            throw new ServiceException("密钥算法不存在！");
+            throw new ServiceException("密钥算法不存在！",BizCodeEnume.ENCIPHER_ERROR.getCode());
         } catch (InvalidKeySpecException e) {
             e.printStackTrace();
-            throw new ServiceException("无效的密钥规范！");
+            throw new ServiceException("无效的密钥规范！",BizCodeEnume.ENCIPHER_ERROR.getCode());
         } catch (InvalidKeyException e) {
             e.printStackTrace();
-            throw new ServiceException("无效key异常！");
+            throw new ServiceException("无效key异常！",BizCodeEnume.ENCIPHER_ERROR.getCode());
         } catch (SignatureException e) {
             e.printStackTrace();
-            throw new ServiceException("签名异常！");
+            throw new ServiceException("签名异常！",BizCodeEnume.ENCIPHER_ERROR.getCode());
         }
     }
 
