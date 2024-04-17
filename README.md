@@ -66,7 +66,7 @@
 * AsymmetricEncryptUtil         非对称加密
 * SM2EncryptUtil                SM2加密
 * SymmetryEncryptUtil           对称加密
-
+* AlibabaHttpClient             阿里 Apache Http Client
 ### 枚举
 * FilenameExtensionEnum          文件扩展名枚举
 
