@@ -26,13 +26,27 @@ public class JwtUtil {
      * token失效时间改为1周，若用户一周未登录app需要重新登录
      */
     private static final Long OUTTIME = 7 * 24 * 60 * 60 * 1000L;
-
+    private JwtUtil() {
+    }
 
     /**
-     * @param info
+     * 生成jwet
+     * @param info 结构体
+     * @param id 唯一标识
      * @return
      */
-    public static String getJWTString(Class<T> info,String id) {
+    public static String generateJWTString(Class<T> info,String id){
+        return generateJWTString(info,id,OUTTIME);
+    }
+
+    /**
+     * 生成jwet
+     * @param info 结构体
+     * @param id  唯一标识
+     * @param outTime 过期时间
+     * @return
+     */
+    public static String generateJWTString(Class<T> info,String id,Long outTime) {
         if (info == null) {
             throw new NullPointerException("null id is illegal");
         }
@@ -42,15 +56,12 @@ public class JwtUtil {
                 .setHeaderParam("alg", "HS256")
                 .setIssuer("Jersey-Security-Basic")
                 .setAudience("user")
-                .setExpiration(new Date(System.currentTimeMillis() + OUTTIME))
+                .setExpiration(new Date(System.currentTimeMillis() + outTime))
                 .setClaims(JSONHelper.JsonToObMap(JSONObject.parseObject(params)))
                 .setIssuedAt(new Date())
                 .setId(id)
                 .signWith(SignatureAlgorithm.HS256, SECRET)
                 .compact();
-    }
-
-    private JwtUtil() {
     }
 
     /**
@@ -71,12 +82,9 @@ public class JwtUtil {
             log.warn("Jwt:{} 解析错误");
             return null;
         } catch (ExpiredJwtException e) {
-            // jwt 已经过期，在设置jwt的时候如果设置了过期时间，这里会自动判断jwt是否已经过期，如果过期则会抛出这个异常，我们可以抓住这个异常并作相关处理。
             log.warn("Jwt:{} 已过期");
             return null;
         }
-        //比如 获取主题,当然，这是我们在生成jwt字符串的时候就已经存进来的
-//        String subject = body.getSubject();
     }
 
 }

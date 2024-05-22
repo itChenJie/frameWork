@@ -8,6 +8,7 @@ package org.basis.framework.error;
 public class ServiceException extends BaseException{
 
     public ServiceException() { super("Service Error",BizCodeEnume.DEFAULT.getCode()); }
+    public ServiceException(BizCodeEnume bizCodeEnume) { super(bizCodeEnume.getMsg(),bizCodeEnume.getCode()); }
 
     public ServiceException(String message) { super(message,BizCodeEnume.DEFAULT.getCode()); }
 

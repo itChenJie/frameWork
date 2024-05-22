@@ -16,8 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @Description
- * 校验工具类
+ * @Description 校验工具类
  * @Author ChenWenJie
  * @Data 2021/5/26 5:34 下午
  **/

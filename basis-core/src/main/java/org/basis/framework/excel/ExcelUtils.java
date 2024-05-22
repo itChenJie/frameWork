@@ -7,11 +7,18 @@ import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.CellRangeAddressList;
+import org.apache.poi.xssf.usermodel.*;
 import org.basis.framework.error.IgnoreException;
+import org.basis.framework.excel.annotation.ExcelIgnore;
+import org.basis.framework.excel.annotation.ExcelProperty;
+import org.basis.framework.excel.annotation.ExcelSelected;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTColor;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
+import java.text.DecimalFormat;
 import java.util.*;
 
 /**
@@ -20,7 +27,8 @@ import java.util.*;
  * @Data 2020/9/24 9:39 上午
  **/
 public class ExcelUtils {
-
+    private final static String excel2003L = ".xls"; // 2003- 版本的excel
+    private final static String excel2007U = ".xlsx"; // 2007+ 版本的excel
     /**
      * 生成Excel
      * @param head 报表头
@@ -325,4 +333,256 @@ public class ExcelUtils {
         }
     }
 
+    /**
+     * 根据实体生成对应 excel 模板
+     * @param head
+     * @param tips
+     * @param sheetName
+     * @param map
+     * @return
+     */
+    public static XSSFWorkbook entityTemplate(Class<?> head, String tips, String sheetName, Map<String, List<String>> map){
+        XSSFWorkbook workbook =new XSSFWorkbook();
+        Font titleFont = workbook.createFont();
+        titleFont.setFontName("simsun");
+        titleFont.setBold(true);
+        titleFont.setColor(IndexedColors.BLACK.index);
+        titleFont.setFontHeightInPoints((short) 14);
+        XSSFCellStyle titleStyle = (XSSFCellStyle) workbook.createCellStyle();
+        titleStyle.setAlignment(HorizontalAlignment.CENTER);
+        titleStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+        titleStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        titleStyle.setFont(titleFont);
+        titleStyle.setWrapText(true);
+        titleStyle.setFillForegroundColor(new XSSFColor((CTColor) java.awt.Color.WHITE));
+        setBorder(titleStyle, BorderStyle.THIN, new XSSFColor((CTColor) java.awt.Color.BLACK));
+        XSSFSheet sheet = workbook.createSheet(sheetName);
+        Field[] fields = head.getDeclaredFields();
+        XSSFRow xssfRow = sheet.createRow(0);
+        xssfRow.setHeightInPoints(120);
+        XSSFCellStyle style = (XSSFCellStyle) workbook.createCellStyle();
+        style.setWrapText(true);
+        xssfRow.setRowStyle(style);
+        xssfRow.createCell(0).setCellValue(tips);
+        XSSFRow row = sheet.createRow(1);
+        for (int i = 0; i < fields.length; i++) {
+            Field field = fields[i];
+            ExcelSelected selected = field.getAnnotation(ExcelSelected.class);
+            ExcelProperty property = field.getAnnotation(ExcelProperty.class);
+            ExcelIgnore excelIgnore = field.getAnnotation(ExcelIgnore.class);
+            if (excelIgnore!=null){
+                continue;
+            }
+            XSSFCell cell = row.createCell(i);
+            cell.setCellValue(property.value()[0]);
+            cell.setCellStyle(titleStyle);
+            if (selected!=null){
+                String[] source = selected.source();
+                if (source!=null&& source.length>0){
+                    setDropDownBox(workbook,sheetName,source,i);
+                }else if (StringUtils.isNotBlank(selected.key())){
+                    List<String> vals = map.get(selected.key());
+                    if (CollectionUtils.isNotEmpty(vals)){
+                        setDropDownBox(workbook,sheetName,vals.toArray(new String[]{}),i);
+                    }
+                }
+            }
+        }
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, fields.length));
+        for (int i = 0; i < fields.length; i++) {
+            //针对SXSSFWorkbook需要加上这句代码才能进行宽度自适应
+            sheet.autoSizeColumn(i);
+            sheet.setColumnWidth(i,sheet.getColumnWidth(i)*17/10);
+        }
+        return workbook;
+    }
+
+    /**
+     * 设置下拉框数据
+     * @param wb       表格对象
+     * @param typeName 要渲染的sheet名称
+     * @param values   下拉框的值
+     * @param col      下拉列的下标
+     * @author Hower Wong
+     * @date 2022年5月27日
+     */
+    public static void setDropDownBox(XSSFWorkbook wb, String typeName, String[] values, Integer col) {
+        //获取所有sheet页个数
+        int sheetTotal = wb.getNumberOfSheets();
+        //处理下拉数据
+        if (values != null && values.length != 0) {
+            //新建一个sheet页
+            String hiddenSheetName = "hiddenSheet";
+            XSSFSheet hiddenSheet = wb.getSheet(hiddenSheetName);
+            if (hiddenSheet == null) {
+                hiddenSheet = wb.createSheet(hiddenSheetName);
+                sheetTotal++;
+            }
+            // 获取数据起始行
+            int startRowNum = hiddenSheet.getLastRowNum() + 1;
+            int endRowNum = startRowNum;
+            //写入下拉数据到新的sheet页中
+            for (int i = 0; i < values.length; i++)
+                hiddenSheet.createRow(endRowNum++).createCell(0).setCellValue(values[i]);
+            //将新建的sheet页隐藏掉
+            wb.setSheetHidden(sheetTotal - 1, true);
+            //获取新sheet页内容
+            String strFormula = hiddenSheetName + "!$A$" + ++startRowNum + ":$A$" + endRowNum;
+            // 设置下拉
+            XSSFSheet mainSheet = wb.getSheet(typeName);
+            mainSheet.addValidationData(setDataValidation(wb, strFormula, 1, 65535, col, col));
+        }
+    }
+
+    /**
+     * 单元格数据格式校验
+     * @param wb         表格对象
+     * @param strFormula formula
+     * @param firstRow   起始行
+     * @param endRow     终止行
+     * @param firstCol   起始列
+     * @param endCol     终止列
+     * @return 返回类型 DataValidation
+     */
+    public static DataValidation setDataValidation(Workbook wb, String strFormula, int firstRow, int endRow, int firstCol, int endCol) {
+        CellRangeAddressList regions = new CellRangeAddressList(firstRow, endRow, firstCol, endCol);
+        DataValidationHelper dvHelper = new XSSFDataValidationHelper((XSSFSheet) wb.getSheet("typelist"));
+        DataValidationConstraint formulaListConstraint = dvHelper.createFormulaListConstraint(strFormula);
+        DataValidation validation = dvHelper.createValidation(formulaListConstraint, regions);
+        // 阻止输入非下拉选项的值
+        validation.setErrorStyle(DataValidation.ErrorStyle.STOP);
+        validation.setShowErrorBox(true);
+        validation.setSuppressDropDownArrow(true);
+        validation.createErrorBox("提示", "请输入下拉选项中的内容");
+        return validation;
+    }
+    private static void setBorder(XSSFCellStyle style, BorderStyle border, XSSFColor color) {
+        style.setBorderTop(border);
+        style.setBorderLeft(border);
+        style.setBorderRight(border);
+        style.setBorderBottom(border);
+        style.setTopBorderColor(color);
+        style.setLeftBorderColor(color);
+        style.setRightBorderColor(color);
+        style.setBottomBorderColor(color);
+    }
+    private static FormulaEvaluator evaluator;
+
+    /**
+     * 导入excel,提取表单内容
+     *
+     * @param in,fileName
+     * @return
+     * @throws Exception
+     */
+    @SuppressWarnings("unused")
+    public static List<?> importExcel(InputStream in, String fileName,Class<?> object) throws Exception {
+        List<Object> list = null;
+        // 创建Excel工作薄
+        Workbook work = null;
+        try {
+            work = getWorkbook(in, fileName);
+            evaluator = work.getCreationHelper().createFormulaEvaluator();
+            if (null == work) {
+                throw new Exception("创建Excel工作薄为空！");
+            }
+            Row row = null;
+            Cell cell = null;
+            list = new ArrayList<Object>();
+            // 读取Excel中第一个sheet
+            if (work.getNumberOfSheets() > 0) {
+                Sheet sheet = work.getSheetAt(0);
+                if (sheet != null) {
+                    Row head = sheet.getRow(0);
+                    int m = head.getLastCellNum();
+                    // 遍历当前sheet中的所有行
+                    for (int j = 2; j <= sheet.getLastRowNum(); j++) {
+                        row = sheet.getRow(j);
+                        if (row == null) {
+                            continue;
+                        }
+                        // 遍历所有的列
+                        List<String> li = new ArrayList<String>();
+                        Object instance = object.newInstance();
+                        Field[] fields = object.getDeclaredFields();
+                        for (int y = 0; y < fields.length; y++) {
+                            // 空值策略 转换null为""
+                            if (!fields[y].getName().equals("isError")){
+                                cell = row.getCell(y, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                                fields[y].setAccessible(true);
+                                fields[y].set(instance,getCellValue(cell));
+                            }
+                        }
+                        list.add(instance);
+                    }
+                }
+            }
+        } finally {
+            try {
+                if(work != null){
+                    work.close();
+                }
+                if(in!= null){
+                    in.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
+    }
+
+    public static Workbook getWorkbook(InputStream inStr, String fileName) throws Exception {
+        Workbook wb = null;
+        String fileType = fileName.substring(fileName.lastIndexOf("."));
+        if (excel2003L.equals(fileType)) {
+            wb = new HSSFWorkbook(inStr); // 2003-
+        } else if (excel2007U.equals(fileType)) {
+            wb = new XSSFWorkbook(inStr); // 2007+
+        } else {
+            throw new Exception("解析的文件格式有误！");
+        }
+        return wb;
+    }
+
+    /**
+     * 对表格中数值进行格式化
+     * @param cell
+     * @return
+     */
+    @SuppressWarnings("deprecation")
+    public static String getCellValue(Cell cell) {
+        String value = null;
+        System.out.println(CellType.STRING.getCode());
+        switch (cell.getCellType()) {
+            case STRING:
+                value = cell.getRichStringCellValue().getString();
+                break;
+            case NUMERIC:
+                if (HSSFDateUtil.isCellDateFormatted(cell)) {
+                    Date date = cell.getDateCellValue();
+                    value = org.basis.framework.utils.DateUtil.formatTime(org.basis.framework.utils.DateUtil.UDateToLocalDateTime(date));
+                } else {
+                    DecimalFormat df = new DecimalFormat("#.#########");// 格式化number
+                    // String字符
+                    value = df.format(cell.getNumericCellValue());
+                }
+                break;
+            case BOOLEAN:
+                value = String.valueOf(cell.getBooleanCellValue());
+                break;
+            case BLANK:
+                value = "";
+                break;
+            case FORMULA:
+                //处理经excel公式算出的值 // 返回经公式计算后的
+                CellValue tempCellValue = evaluator.evaluate(cell);
+                double iCellValue = tempCellValue.getNumberValue();
+                value=String.format("%.5f", iCellValue);
+                break;
+            default:
+                break;
+        }
+        return value == null ? null : value.trim();
+    }
 }

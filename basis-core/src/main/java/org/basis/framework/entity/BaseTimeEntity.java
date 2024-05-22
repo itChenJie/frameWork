@@ -14,15 +14,10 @@ import java.util.Date;
  **/
 @Data
 public class BaseTimeEntity {
-    /**
-     * 创建时间
-     */
     @ApiModelProperty(value = "创建时间")
     @TableField(value = "create_time",fill = FieldFill.INSERT)
     private Date createTime;
-    /**
-     * 更新时间
-     */
+
     @ApiModelProperty(value = "更新时间")
     @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;

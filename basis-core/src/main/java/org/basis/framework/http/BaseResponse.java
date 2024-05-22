@@ -11,10 +11,7 @@ import lombok.NoArgsConstructor;
 public class BaseResponse<T> {
     public static final int CODE_SUCCESS = 100;
 
-
-
     public static final int CODE_ERROR = 101;
-
 
     private int code;
 

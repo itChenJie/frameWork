@@ -13,10 +13,12 @@ import java.util.Date;
  **/
 @Slf4j
 public class ReflectionInvokeUtils {
+
     /**
-     *
+     * 通过反射获取字段值
+     * @param object
+     * @param columnName
      * @return
-     * @Title: getObjectValue @Description: 通过反射获取字段值 @param @return @throws
      */
     public static Object getObjectValue(Object object, String columnName){
         try {
@@ -35,9 +37,10 @@ public class ReflectionInvokeUtils {
     }
 
     /**
-     *
-     * @return
-     * @Title: getObjectValue @Description: 通过反射获取字段值 @param @return @throws
+     * 通过反射获取字段值
+     * @param object
+     * @param columnName
+     * @param value
      */
     public static void setObjectValue(Object object, String columnName,Object value){
         try {

@@ -20,6 +20,8 @@ public class JSONHelper {
 
     /**
      * Object对象转JSON字符串
+     * @param obj
+     * @return
      */
     public static String obj2JSONString(Object obj) {
         if (obj == null) {
@@ -30,13 +32,14 @@ public class JSONHelper {
 
     /**
      * 数组/列表对象转JSON字符串
+     * @param o
+     * @return
      */
     public static String obj2JSONArray(Object o) {
         if (o == null)
-            return "[]";// [{}]
+            return "[]";
         return JSONArray.toJSONString(o);
     }
-    ////////////////////////////////////////////////////////
 
     /**
      * 把JSON格式的字符串转换成对象
@@ -46,8 +49,6 @@ public class JSONHelper {
      */
     public static <T> T jsonToObject(String json, Class<T> clazz) {
         try {
-            // JSONObject jsonObj = JSONObject.parseObject( json );
-            // return JSONObject.toJavaObject(jsonObj, clazz);
             return JSONObject.parseObject(json, clazz);
         } catch (Exception e) {
             LOGGER.error("转换失败", e);
@@ -57,6 +58,8 @@ public class JSONHelper {
 
     /**
      * JSON字符串转List<String>
+     * @param jsonList
+     * @return
      */
     public static List<String> str2JsonList(String jsonList) {
         if (StringUtils.isBlank(jsonList))
@@ -75,6 +78,8 @@ public class JSONHelper {
 
     /**
      * JSON字符串转List<Integer>
+     * @param jsonList
+     * @return
      */
     public static List<Integer> str2JsonList2(String jsonList) {
         if (StringUtils.isBlank(jsonList))
@@ -118,11 +123,9 @@ public class JSONHelper {
     }
 
     /**
+     *  (解析第一层JSONObject中的key和对应的VALUE ， 并把对应的key和value放到Map中 ， 并返回Map对象)
      * @param jsonObject
      * @return
-     * @throws
-     * @Title: JsonToMap
-     * @Description: (解析第一层JSONObject中的key和对应的VALUE ， 并把对应的key和value放到Map中 ， 并返回Map对象)
      */
     public static Map<String, String> JsonToMap(JSONObject jsonObject) {
         Map<String, String> result = new HashMap<String, String>();
@@ -136,11 +139,9 @@ public class JSONHelper {
     }
 
     /**
+     * (解析第一层JSONObject中的key和对应的VALUE ， 并把对应的key和value放到Map中 ， 并返回Map对象)
      * @param jsonObject
      * @return
-     * @throws
-     * @Title: JsonToMap
-     * @Description: (解析第一层JSONObject中的key和对应的VALUE ， 并把对应的key和value放到Map中 ， 并返回Map对象)
      */
     public static TreeMap<String, String> JsonToTreeMap(JSONObject jsonObject) {
         TreeMap<String, String> result = new TreeMap<String, String>();
@@ -154,11 +155,9 @@ public class JSONHelper {
     }
 
     /**
+     * (解析第一层JSONObject中的key和对应的VALUE ， 并把对应的key和value放到Map中 ， 并返回Map对象)
      * @param jsonObject
      * @return
-     * @throws
-     * @Title: JsonToMap
-     * @Description: (解析第一层JSONObject中的key和对应的VALUE ， 并把对应的key和value放到Map中 ， 并返回Map对象)
      */
     public static Map<String, Object> JsonToObMap(JSONObject jsonObject) {
         Map<String, Object> result = new HashMap<String, Object>();
@@ -173,8 +172,6 @@ public class JSONHelper {
 
     public static void main(String[] args) {
         String jsonStr = null;
-
-
         if (StringUtils.isBlank(jsonStr)) {
             System.out.println("yes");
         }

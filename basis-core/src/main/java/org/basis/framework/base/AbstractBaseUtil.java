@@ -35,7 +35,7 @@ public abstract class AbstractBaseUtil {
      * @return 加密后的字符串
      */
     public static String sign(String key, String salt) {
-        return SecureUtil.md5(key.concat("erp").concat(salt));
+        return SecureUtil.md5(key.concat(salt));
     }
 
     /**
@@ -59,7 +59,7 @@ public abstract class AbstractBaseUtil {
         return DateUtil.format(new Date(), "yyyyMMdd");
     }
 
-    //FIXME 如果获取的地址不正确,直接返回一个固定地址也可以
+
     public static String getIpAddress() {
         return "https://crm.food-chain.com/";
 

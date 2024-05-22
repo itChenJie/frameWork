@@ -1,7 +1,5 @@
 package org.basis.framework.error;
 
-import org.basis.framework.annotation.Permissions;
-
 /**
  * @Annotation
  *  * 错误码和错误信息定义类
@@ -28,7 +26,13 @@ public enum BizCodeEnume {
     NO_DATA(00003, "无数据"),
     NO_ACCOUNT(00004, "未维护用户信息，请联系管理员"),
     DEFAULT(500,"通用错误"),
-    PERMISSIONS(00005,"未授权");
+    PERMISSIONS(00005,"未授权"),
+
+    DECRYPT_ERROR(400001, "解密失败"),
+    ENCRYPT_ERROR(400002, "加密失败"),
+    ENCIPHER_ERROR(400000, "加密工具异常"),
+
+    ;
     
     private int code;
     private String msg;

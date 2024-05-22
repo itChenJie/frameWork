@@ -1,11 +1,11 @@
 # framwWork
 ## 基础类
- ##注解
+ ### 注解
 * org.basis.framework.annotation
     * DistributeLock   分布式锁注解
     * IgnoreSecurity   忽略登录检查
     * Permissions  权限
- ##异常类
+ ### 异常类
 * org.basis.framework.error
     * ExceptionControllerAdvice   异常控制器建议
     * DefinitionExceptionHandler  定义异常处理程序
@@ -14,10 +14,26 @@
     * UnauthorizedException       未经授权的异常
     * ValidationException         验证异常
     * IgnoreException             忽略异常
- ##日志监听 
+ ### 日志监听 
 * org.basis.framework.log
     * LoggerDisruptorQueue        日志处理队列
     * ProcessLogAppender          控制台日志处理
+  ### 识别
+* org.basis.framework.Identify
+    * IdentifyPDFProperties       pdf识别 规则配置
+    * IdentifyRegexConfig         pdf识别 规则
+    * PdfBoxKeyWordPosition       Pdf 获取关键字位置
+    * PdfIdentifyConfigUtil       加载pdf识别 规则配置
+    * PdfIdentifyUtil             pdf识别 工具类
+    * RegexConfig
+ ### 切面类
+* org.basis.framework.aspect
+    * ApiLogAop Controller 参数打印 连接 log 注解
+    * DistributeLockAspect Aop的形式使用分布式锁
+    * SqlSaveAndUpdateContentFillingAspect 新增、编辑 实体类基础属性字段赋值
+## 测试工具 test
+* BaseTest mvc测试基类
+* BaseServiceTest service测试基类 
 ## 工具类
 * DateUtil                      工具类
 * EntityUtil                    实体生成器
@@ -37,7 +53,6 @@
 * DistanceCalculationUtils      距离计算
 * EnumUtils                     枚举工具类
 * IdCardValidatorUtils          身份证验证器工具类
-* MD5Util                       MD5签名处理工具类
 * MoneyUtil                     金额校验工具类
 * OSSClientUtil                 OSS工具类 
 * PinyinUtils                   汉字转拼音工具
@@ -46,10 +61,15 @@
 * SnowFlakeUtils                Twitter的分布式自增ID雪花算法snowflake
 * TokenGenerator                生成token  
 * BarCodeUtil                   条形码生成器
-
-##枚举
+* BigDecimalUtil                BigDecimal类型操作类
+* MD5Util                       MD5签名处理工具类
+* AsymmetricEncryptUtil         非对称加密
+* SM2EncryptUtil                SM2加密
+* SymmetryEncryptUtil           对称加密
+* AlibabaHttpClient             阿里 Apache Http Client
+### 枚举
 * FilenameExtensionEnum          文件扩展名枚举
 
-###打包命令 ./gradlew clean classes -x test
-###强制更新最新依赖，清除构建并构建
+### 打包命令 ./gradlew clean classes -x test
+### 强制更新最新依赖，清除构建并构建
 ### ./gradlew clean build --refresh-dependencies

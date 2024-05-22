@@ -1,6 +1,8 @@
-package org.basis.framework.utils;
+package org.basis.framework.encryption;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.basis.framework.error.BizCodeEnume;
+import org.basis.framework.error.ServiceException;
 
 import java.io.UnsupportedEncodingException;
 import java.security.SignatureException;
@@ -19,8 +21,7 @@ public class MD5Util {
      * @return 签名结果
      */
     public static String sign(String text, String key) {
-        text = text + key;
-        return DigestUtils.md5Hex(getContentBytes(text, charset));
+        return sign(text,key,charset);
     }
     /**
      * 签名字符串
@@ -35,7 +36,7 @@ public class MD5Util {
     }
 
     /**
-     * 签名字符串
+     * 签名字符串 校验
      * @param text 需要签名的字符串
      * @param sign 签名结果
      * @param key 密钥
@@ -67,7 +68,7 @@ public class MD5Util {
         try {
             return content.getBytes(charset);
         } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException("MD5签名过程中出现错误,指定的编码集不对,您目前指定的编码集是:" + charset);
+            throw new ServiceException("MD5签名过程中出现错误,指定的编码集不对,您目前指定的编码集是:", BizCodeEnume.ENCIPHER_ERROR.getCode());
         }
     }
 
