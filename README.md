@@ -31,6 +31,15 @@
     * ApiLogAop Controller 参数打印 连接 log 注解
     * DistributeLockAspect Aop的形式使用分布式锁
     * SqlSaveAndUpdateContentFillingAspect 新增、编辑 实体类基础属性字段赋值
+
+## 加密 
+* org.basis.framework.encryption
+
+### 脱敏
+* org.basis.framework.encryption.desensitization
+  * SensitiveFastjsonInterceptor     fastjson 系列化脱敏 
+  * SensitiveJacksonInterceptor      jackson 系列化脱敏
+
 ## 测试工具 test
 * BaseTest mvc测试基类
 * BaseServiceTest service测试基类 
@@ -67,6 +76,7 @@
 * SM2EncryptUtil                SM2加密
 * SymmetryEncryptUtil           对称加密
 * AlibabaHttpClient             阿里 Apache Http Client
+* IpUtil                        ip工具类
 ### 枚举
 * FilenameExtensionEnum          文件扩展名枚举
 
