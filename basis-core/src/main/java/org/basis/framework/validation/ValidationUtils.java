@@ -14,6 +14,7 @@ import javax.validation.Validator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @Description 校验工具类
@@ -75,7 +76,8 @@ public class ValidationUtils {
             for (FieldError fe : bindingResult.getFieldErrors()) {
                 errorMsg.add(fe.getDefaultMessage());
             }
-            return JsonReturnApi.error(String.valueOf(BizCodeEnume.PARAM_VALIDATE_ERROR.getCode()), errorMsg.toString());
+            return JsonReturnApi.error(String.valueOf(BizCodeEnume.PARAM_VALIDATE_ERROR.getCode())
+                    ,  Joiner.on(",").join(errorMsg));
         }
 
         return responseVo;

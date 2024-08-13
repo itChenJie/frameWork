@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.basis.framework.json.JsonReturnApi;
 import org.basis.framework.validation.ValidationUtils;
 import org.springframework.validation.BindException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,7 +30,7 @@ public class GlobalExceptionHandler {
      * @param exception
      * @return
      */
-    @ExceptionHandler
+    @ExceptionHandler(RRException.class)
     public JsonReturnApi bizExceptionHandler(HttpServletRequest request, RRException exception) {
         log.warn("捕获自定义异常信息：{}", exception);
         return JsonReturnApi.error(String.valueOf(exception.getCode()), exception.getMessage());
@@ -43,7 +44,7 @@ public class GlobalExceptionHandler {
      * @param bizException
      * @return
      */
-    @ExceptionHandler
+    @ExceptionHandler(IllegalArgumentException.class)
     public JsonReturnApi bizExceptionHandler(HttpServletRequest request,
                                              IllegalArgumentException bizException) {
         log.warn("捕获自定义异常信息：{}", bizException);
@@ -58,9 +59,9 @@ public class GlobalExceptionHandler {
      * @param bindException
      * @return
      */
-    @ExceptionHandler
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     public JsonReturnApi methodArgumentNotValidExceptionHandler(HttpServletRequest request,
-                                                                BindException bindException) {
+                                                                MethodArgumentNotValidException bindException) {
         log.warn("捕获参数校验异常信息：{}", bindException);
 
         return ValidationUtils.validate(bindException.getBindingResult());
