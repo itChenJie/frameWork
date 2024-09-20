@@ -6,10 +6,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.InetAddress;
-import java.net.URL;
-import java.net.UnknownHostException;
+import java.net.*;
+import java.util.Enumeration;
 
 /**
  *
@@ -27,19 +25,33 @@ public class IpUtil {
     private static final String SEPARATOR = ",";
 
     /**
-     * 获取本地ip
+     * 获取本机内网ip
      * @return
      */
     public static String getLocalIp() {
         try {
-            InetAddress localHost = InetAddress.getLocalHost();
-            return localHost.getHostAddress();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-            return "Unknown";
-        }
-    }
+            Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
+            while (networkInterfaces.hasMoreElements()) {
+                NetworkInterface networkInterface = networkInterfaces.nextElement();
+                // 过滤掉回环接口和未启用的接口
+                if (networkInterface.isLoopback() || !networkInterface.isUp()) {
+                    continue;
+                }
 
+                Enumeration<InetAddress> inetAddresses = networkInterface.getInetAddresses();
+                while (inetAddresses.hasMoreElements()) {
+                    InetAddress inetAddress = inetAddresses.nextElement();
+                    // 只获取内网地址（私有 IP）
+                    if (inetAddress.isSiteLocalAddress()) {
+                        return inetAddress.getHostAddress();
+                    }
+                }
+            }
+        }catch (SocketException e) {
+            e.printStackTrace();
+        }
+        return "Unknown";
+    }
     /**
      * 获取外网ip城市
      * @param ip
