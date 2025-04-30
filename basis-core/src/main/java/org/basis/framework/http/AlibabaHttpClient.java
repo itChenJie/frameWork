@@ -16,6 +16,9 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 
+/**
+ * @Description 阿里 cloudapi http 工具类
+ */
 @Slf4j
 @Component
 public class AlibabaHttpClient extends ApacheHttpClient {
@@ -36,16 +39,22 @@ public class AlibabaHttpClient extends ApacheHttpClient {
     }
 
     /**
-     * 调用天图系统接口
+     * 接口调研
+     * @param url 地址
+     * @param param 参数
+     * @param typeReference 返回数据类型
+     * @return
+     * @param <T>
+     * @throws IOException
      */
     public <T> BaseResponse<T>  call(String url, Object param, TypeReference<BaseResponse<T>> typeReference) throws IOException {
         ApiRequest request = new ApiRequest(HttpMethod.POST_BODY, url);
-        log.info("aibaba http client，url[{}]，APPKEY[{}]，APPSECRET[{}]，参数[{}]", url, APPKEY, APPSECRET, JSON.toJSON(param));
+        log.info("alibaba http client，url[{}]，APPKEY[{}]，APPSECRET[{}]，参数[{}]", url, APPKEY, APPSECRET, JSON.toJSON(param));
         request.setBody(JSONObject.toJSONBytes(param));
         request.addHeader("Content-Type", "application/json; charset=utf-8");
         ApiResponse apiResponse = sendSyncRequest(request);
         BaseResponse result = getResultString(apiResponse,typeReference);
-        log.info("aibaba http client，result：{}", JSON.toJSON(result));
+        log.info("alibaba http client，result：{}", JSON.toJSON(result));
         if (result.getCode() != 200) {
             log.error("client error-----> msg---->{}", result.getMsg());
             return result;

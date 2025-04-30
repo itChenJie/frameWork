@@ -2,6 +2,7 @@ package org.basis.framework.utils;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.basis.framework.utils.regexp.RegexpUtil;
@@ -34,6 +35,8 @@ public class DateUtil{
     public static final String yyyy_MM_dd_HH_mm_ss = "yyyy-MM-dd HH:mm:ss";
     public static final String TIME_PATTERN = "HH:mm:ss";
     private static final List<String> formats = new ArrayList<>(4);
+    private static String[] hmsDatePatterns = {"yyyy-MM-dd HH:mm","yyyy-MM-dd HH:mm:ss", "yyyy/MM/dd HH:mm",
+            "yyyy/MM/dd HH:mm:ss", "yyyy.MM.dd HH:mm:ss", "yyyy.MM.dd HH:mm:ss","yyyy/MM/dd"};
 
     static {
         formats.add("yyyy-MM");
@@ -656,6 +659,16 @@ public class DateUtil{
         ZoneId zone = ZoneId.systemDefault();
         LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
         return localDateTime;
+    }
+    public static Date hmsParseDate(Object date) {
+        if (date == null) {
+            return null;
+        }
+        try {
+            return DateUtils.parseDate(date.toString(), hmsDatePatterns);
+        } catch (ParseException e) {
+            return null;
+        }
     }
 }
 class DateFormatCache {

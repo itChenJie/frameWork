@@ -39,6 +39,9 @@
 * org.basis.framework.encryption.desensitization
   * SensitiveFastjsonInterceptor     fastjson 系列化脱敏 
   * SensitiveJacksonInterceptor      jackson 系列化脱敏
+### execl 工具
+* org.basis.framework.excel
+    *  ExcelImportCheckUtil   excel导入数据校验
 
 ## 测试工具 test
 * BaseTest mvc测试基类
