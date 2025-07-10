@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 /**
  * @Description
  * 默认统一异常处理
- * @Author ChenWenJie
- * @Data 2021/9/24 4:32 下午
+ * @Author ChenJie
  **/
 public class DefinitionExceptionHandler {
     private Logger logger = LoggerFactory.getLogger(this.getClass());

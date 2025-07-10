@@ -14,8 +14,7 @@ import java.util.List;
 
 /**
  * @Description 文件工具类
- * @Author ChenWenJie
- * @Data 2020/11/20 2:55 下午
+ * @Author ChenJie
  **/
 public class FileUtils {
     private static final Log logger = LogFactory.getLog(FileUtils.class);

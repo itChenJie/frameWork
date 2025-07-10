@@ -12,8 +12,7 @@ import java.io.InputStreamReader;
 
 /**
  * @Description  加载pdf识别 规则配置
- * @Author ChenWenJie
- * @Data 2023/04/28 2:55 下午
+ * @Author ChenJie
  **/
 public class PdfIdentifyConfigUtil {
 

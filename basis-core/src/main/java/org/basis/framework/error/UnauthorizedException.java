@@ -7,8 +7,7 @@ import org.springframework.http.HttpStatus;
 /**
  * @Description
  * 未经授权 异常
- * @Author ChenWenJie
- * @Data 2021/9/24 4:52 下午
+ * @Author ChenJie
  **/
 @Data
 @EqualsAndHashCode(callSuper=false)

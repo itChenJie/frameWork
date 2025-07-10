@@ -10,8 +10,7 @@ import java.util.List;
 
 /**
  * @Description
- * @Author ChenWenJie
- * @Data 2022/5/31 17:07
+ * @Author ChenJie
  **/
 @ExcelTarget("DemoEntity")
 @Data

@@ -1,7 +1,7 @@
 package org.basis.framework.encryption.desensitization.constant;
 
 /**
- * @author chenjie
+ * @author ChenJie
  * 脱敏字段类型
  */
 public enum SensitiveTypeEnum {

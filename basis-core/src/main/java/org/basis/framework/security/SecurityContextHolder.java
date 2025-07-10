@@ -4,8 +4,7 @@ import org.springframework.boot.actuate.endpoint.SecurityContext;
 
 /**
  * @Description
- * @Author CWJ
- * @Data 2021/3/19 下午2:36
+ * @Author ChenJie
  **/
 public class SecurityContextHolder {
     private static  ThreadLocal<SecurityContext> holder= new ThreadLocal<>();

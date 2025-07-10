@@ -22,8 +22,7 @@ import java.security.NoSuchAlgorithmException;
  * 缺点：
  *  密钥需要传递，难以确保密钥安全性；
  *  不能作为身份验证，密钥发放困难，安全性得不到保证；
- * @Author ChenWenJie
- * @Data 2022/09/19 1:23 下午
+ * @Author ChenJie
  **/
 public class SymmetryEncryptUtil {
     /**

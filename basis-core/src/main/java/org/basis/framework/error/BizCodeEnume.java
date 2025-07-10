@@ -14,9 +14,7 @@ package org.basis.framework.error;
  *  *  13: 购物车
  *  *  14: 物流
  * @ClassName BizCodeEnume
- * @Author ChenWenJie
- * @Data 2020/7/8 11:27 下午
- * @Version 1.0
+ * @Author ChenJie
  **/
 public enum BizCodeEnume {
     USER_UN_LOGIN(00000, "用户未登录"),

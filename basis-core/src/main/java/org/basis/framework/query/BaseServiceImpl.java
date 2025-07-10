@@ -14,8 +14,7 @@ import java.util.List;
 
 /**
  * @Description
- * @Author ChenWenJie
- * @Data 2021/12/7 4:53 下午
+ * @Author ChenJie
  */
 public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M, T> implements IBaseService<T>{
 

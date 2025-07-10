@@ -7,8 +7,7 @@ import java.util.UUID;
 
 /**
  * @Description 生成token
- * @Author ChenWenJie
- * @Data 2021/7/6 4:18 下午
+ * @Author ChenJie
  **/
 public class TokenGenerator {
     public static String generateValue() {

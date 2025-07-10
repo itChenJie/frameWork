@@ -6,8 +6,7 @@ import java.text.NumberFormat;
 
 /**
  * @Description 金额校验工具类
- * @Author ChenWenJie
- * @Data 2021/6/11 2:55 下午
+ * @Author ChenJie
  **/
 public class MoneyUtil {
     public static final DecimalFormat FORMATTER = new DecimalFormat("0.##");

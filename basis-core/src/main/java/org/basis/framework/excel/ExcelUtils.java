@@ -23,8 +23,7 @@ import java.util.*;
 
 /**
  * @Description Excel工具类
- * @Author ChenWenJie
- * @Data 2020/9/24 9:39 上午
+ * @Author ChenJie
  **/
 public class ExcelUtils {
     private final static String excel2003L = ".xls"; // 2003- 版本的excel

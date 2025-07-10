@@ -6,8 +6,7 @@ import org.springframework.http.HttpStatus;
 /**
  * @Description
  * 分配锁异常
- * @Author ChenWenJie
- * @Data 2021/9/29 3:07 下午
+ * @Author ChenJie
  **/
 @EqualsAndHashCode(callSuper=false)
 public class DistributeLockException extends BaseException{

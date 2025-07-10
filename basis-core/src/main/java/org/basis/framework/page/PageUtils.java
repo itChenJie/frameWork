@@ -11,8 +11,7 @@ import java.util.Map;
 /**
  * @Description
  *  分页
- * @Author CWJ
- * @Data 2021/3/18 下午4:32
+ * @Author ChenJie
  **/
 @Data
 public class PageUtils implements Serializable {

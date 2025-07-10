@@ -22,8 +22,7 @@ import java.util.regex.Matcher;
 
 /**
  * @Description 日期工具类
- * @Author ChenWenJie
- * @Data 2021/5/26 5:34 下午
+ * @Author ChenJie
  **/
 public class DateUtil{
     private static final Log LOG = LogFactory.getLog(DateUtil.class);

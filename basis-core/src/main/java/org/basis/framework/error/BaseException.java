@@ -5,8 +5,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * @Description
- * @Author ChenWenJie
- * @Data 2021/12/7 4:59 下午
+ * @Author ChenJie
  **/
 public class BaseException extends RuntimeException{
     private static final Logger log = LoggerFactory.getLogger(BaseException.class);

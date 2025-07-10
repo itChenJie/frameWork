@@ -9,8 +9,7 @@ import java.util.Date;
 
 /**
  * @Description
- * @Author ChenWenJie
- * @Data 2021/8/6 6:04 下午
+ * @Author ChenJie
  **/
 public abstract class AbstractBaseUtil {
     private static ThreadLocal<LoginUser> threadLocal = new ThreadLocal<>();

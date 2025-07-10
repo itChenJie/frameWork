@@ -11,8 +11,7 @@ import java.net.UnknownHostException;
 
 /**
  * @Description Twitter的分布式自增ID雪花算法snowflake
- * @Author ChenWenJie
- * @Data 2021/5/26 4:53 下午
+ * @Author ChenJie
  **/
 @Slf4j
 public class SnowFlakeUtils {

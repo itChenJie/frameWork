@@ -3,7 +3,7 @@ package org.basis.framework.log;
 /**
  *@Description
  *   日志消息实体
- *@Author ChenWenJie
+ *@Author ChenJie
  *@Data 2021/11/24 5:11 下午
  **/
 public class LoggerMessage {

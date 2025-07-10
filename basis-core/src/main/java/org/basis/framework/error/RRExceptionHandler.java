@@ -11,7 +11,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 /**
  * 异常处理器
  *
- * @author ChenWenJie
+ * @author ChenJie
  */
 //@RestControllerAdvice
 public class RRExceptionHandler {

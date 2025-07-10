@@ -5,8 +5,7 @@ import org.basis.framework.message.bean.MessageDetailsInfo;
 
 /**
  * @Description 消息接口
- * @Author ChenWenJie
- * @Data 2021/10/22 5:47 下午
+ * @Author ChenJie
  */
 public interface IMessage {
 

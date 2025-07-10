@@ -9,8 +9,7 @@ import java.util.Date;
 
 /**
  * @Description 基础Entity
- * @Author ChenWenJie
- * @Data 2021/7/4 5:03 下午
+ * @Author ChenJie
  **/
 @Data
 public class BaseEntity {

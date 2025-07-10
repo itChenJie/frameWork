@@ -13,8 +13,7 @@ import java.util.Set;
 
 /**
  * @Description
- * @Author ChenWenJie
- * @Data 2021/5/26 4:23 下午
+ * @Author ChenJie
  **/
 public class HibernateValidationUtils {
     public static final String VALIDATOR_PASS = "PASS";

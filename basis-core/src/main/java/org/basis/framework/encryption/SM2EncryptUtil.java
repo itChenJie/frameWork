@@ -23,8 +23,7 @@ import java.security.spec.ECGenParameterSpec;
 
 /**
  * @Description SM2算法工具类
- * @Author ChenWenJie
- * @Data 2022/09/19 1:23 下午
+ * @Author ChenJie
  **/
 public class SM2EncryptUtil {
     /**

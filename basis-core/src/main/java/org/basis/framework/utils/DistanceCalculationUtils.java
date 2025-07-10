@@ -2,8 +2,7 @@ package org.basis.framework.utils;
 
 /**
  * @Description 距离计算工具
- * @Author ChenWenJie
- * @Data 2021/6/11 2:52 下午
+ * @Author ChenJie
  **/
 public class DistanceCalculationUtils {
     /**

@@ -13,8 +13,7 @@ import java.util.regex.Pattern;
 
 /**
  * @Description 字符串工具类
- * @Author ChenWenJie
- * @Data 2020/11/21 3:23 下午
+ * @Author ChenJie
  **/
 public class StringUtil {
 

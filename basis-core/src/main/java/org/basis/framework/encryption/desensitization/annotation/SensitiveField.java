@@ -12,7 +12,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * author: chenjie
+ * author: ChenJie
  * 反系列化时用来标识敏感字段 和 敏感字段类型
  */
 @Target({ElementType.FIELD})

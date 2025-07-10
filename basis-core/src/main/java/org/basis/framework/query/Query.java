@@ -13,8 +13,7 @@ import java.util.List;
 
 /**
  * @Description
- * @Author ChenWenJie
- * @Data 2021/12/6 6:07 下午
+ * @Author ChenJie
  **/
 public abstract class Query<T> implements Serializable {
     private static final long serialVersionUID = 1L;

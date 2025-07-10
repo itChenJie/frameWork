@@ -19,8 +19,7 @@ import java.util.List;
 
 /**
  * @Description
- * @Author ChenWenJie
- * @Data 2022/5/31 15:53
+ * @Author ChenJie
  **/
 @Slf4j
 public class BaseExcelDataController {

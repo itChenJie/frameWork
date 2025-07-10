@@ -14,8 +14,7 @@ import java.util.Map;
 
 /**
  * @Description 二维码工具类
- * @Author ChenWenJie
- * @Data 2021/6/11 3:21 下午
+ * @Author ChenJie
  **/
 public class QrCodeUtil {
     /**

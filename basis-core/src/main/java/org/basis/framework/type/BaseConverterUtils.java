@@ -2,8 +2,7 @@ package org.basis.framework.type;
 
 /**
  * @Description 基本类型的转换工具类
- * @Author ChenWenJie
- * @Data 2021/8/27 4:48 下午
+ * @Author ChenJie
  **/
 public class BaseConverterUtils {
     /**

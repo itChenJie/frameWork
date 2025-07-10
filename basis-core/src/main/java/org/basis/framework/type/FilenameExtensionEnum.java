@@ -8,8 +8,7 @@ import java.util.stream.Stream;
 
 /**
  * @Description 文件扩展名枚举
- * @Author ChenWenJie
- * @Data 2021/6/11 3:06 下午
+ * @Author ChenJie
  */
 @Getter
 @AllArgsConstructor

@@ -18,8 +18,7 @@ import java.util.stream.Collectors;
 
 /**
  * @Description 校验工具类
- * @Author ChenWenJie
- * @Data 2021/5/26 5:34 下午
+ * @Author ChenJie
  **/
 public class ValidationUtils {
     public static final String VALIDATOR_PASS = "PASS";

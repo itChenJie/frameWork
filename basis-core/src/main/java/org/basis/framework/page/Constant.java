@@ -3,8 +3,7 @@ package org.basis.framework.page;
 
 /**
  * @Description
- * @Author CWJ
- * @Data 2021/3/18 下午4:32
+ * @Author ChenJie
  **/
 public class Constant {
     /**

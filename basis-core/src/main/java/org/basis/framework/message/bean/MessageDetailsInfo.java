@@ -10,8 +10,7 @@ import java.util.Date;
 /**
  * @Description
  * 消息详情信息
- * @Author ChenWenJie
- * @Data 2021/10/22 5:57 下午
+ * @Author ChenJie
  **/
 @Data
 @Builder

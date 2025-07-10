@@ -9,8 +9,7 @@ import java.security.SignatureException;
 
 /**
  * @Description MD5签名处理
- * @Author ChenWenJie
- * @Data 2021/03/18 3:23 下午
+ * @Author ChenJie
  **/
 public class MD5Util {
     private static final String charset="utf-8";

@@ -12,8 +12,7 @@ import java.util.Date;
 
 /**
  * @Description Jwt工具类
- * @Author ChenWenJie
- * @Data 2021/8/27 4:48 下午
+ * @Author ChenJie
  **/
 @Slf4j
 public class JwtUtil {

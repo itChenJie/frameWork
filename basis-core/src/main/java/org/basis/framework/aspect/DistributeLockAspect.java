@@ -23,8 +23,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @Description
  * 采用注解+Aop的形式使用分布式锁
- * @Author ChenWenJie
- * @Data 2021/9/29 2:57 下午
+ * @Author ChenJie
  **/
 @Slf4j
 @Aspect

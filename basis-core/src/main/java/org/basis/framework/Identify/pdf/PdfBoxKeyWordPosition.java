@@ -10,8 +10,7 @@ import java.util.List;
 
 /**
  * @Description  Pdf 获取关键字位置
- * @Author ChenWenJie
- * @Data 2023/04/28 2:55 下午
+ * @Author ChenJie
  **/
 public class PdfBoxKeyWordPosition extends PDFTextStripper {
 

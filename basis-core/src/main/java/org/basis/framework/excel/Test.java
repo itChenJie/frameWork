@@ -8,8 +8,7 @@ import java.util.*;
 
 /**
  * @Description
- * @Author ChenWenJie
- * @Data 2021/10/22 10:34 上午
+ * @Author ChenJie
  **/
 public class Test {
     public static void main(String[] args) throws IOException {

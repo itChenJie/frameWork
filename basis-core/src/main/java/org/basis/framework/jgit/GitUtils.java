@@ -25,8 +25,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 /**
  * @Description git操作工具类
- * @Author ChenWenJie
- * @Data 2020/11/20 2:55 下午
+ * @Author ChenJie
  **/
 public class GitUtils {
     private final static String DEFAULT_EMAIL = "default@mail.com";

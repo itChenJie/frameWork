@@ -8,8 +8,7 @@ import java.util.regex.Pattern;
 
 /**
  * @Description 身份证验证器工具类
- * @Author ChenWenJie
- * @Data 2020/11/20 2:55 下午
+ * @Author ChenJie
  **/
 public class IdCardValidatorUtils {
     // 每位加权因子

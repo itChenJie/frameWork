@@ -15,8 +15,7 @@ import java.util.*;
 /**
  * @Description
  * 百度客户端工具类
- * @Author ChenWenJie
- * @Data 2021/10/18 11:31 上午
+ * @Author ChenJie
  **/
 public class BaiduClientUtil {
     private static final Logger log = LoggerFactory.getLogger(BaiduClientUtil.class);

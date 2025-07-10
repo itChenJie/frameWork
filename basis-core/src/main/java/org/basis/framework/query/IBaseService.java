@@ -10,7 +10,7 @@ import java.util.Optional;
 /**
  *@Description
  * mybatis基础服务
- *@Author ChenWenJie
+ *@Author ChenJie
  *@Data 2021/12/7 5:14 下午
  **/
 public interface IBaseService<T> {

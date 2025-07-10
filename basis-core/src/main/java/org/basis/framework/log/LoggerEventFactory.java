@@ -4,8 +4,7 @@ import com.lmax.disruptor.EventFactory;
 
 /**
  * @Description
- * @Author ChenWenJie
- * @Data 2021/11/24 5:32 下午
+ * @Author ChenJie
  **/
 public class LoggerEventFactory implements EventFactory<LoggerEvent> {
     @Override

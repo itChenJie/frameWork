@@ -10,8 +10,7 @@ import java.util.regex.Pattern;
 
 /**
  * @Description 自定义手机号约束注解关联验证器
- * @Author ChenWenJie
- * @Data 2021/9/26 3:29 下午
+ * @Author ChenJie
  **/
 public class PhoneValidator implements ConstraintValidator<Phone,String> {
 

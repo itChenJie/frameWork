@@ -18,8 +18,7 @@ import java.util.Map;
 /**
  * @Description
  *  条形码生成器
- * @Author ChenWenJie
- * @Data 2022/5/25 14:04
+ * @Author ChenJie
  **/
 public class BarCodeUtil {
     /**

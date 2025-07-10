@@ -12,8 +12,7 @@ import java.nio.file.Paths;
 
 /**
  * @Description git工厂类
- * @Author ChenWenJie
- * @Data 2020/11/20 2:55 下午
+ * @Author ChenJie
  **/
 public class GitFactory {
 

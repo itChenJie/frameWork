@@ -11,8 +11,7 @@ import java.util.Base64;
 
 /**
  * @Description AES 工具类
- * @Author ChenWenJie
- * @Data 2023/11/15 2:34 下午
+ * @Author ChenJie
  **/
 public class AESUtil {
 

@@ -23,8 +23,7 @@ import java.util.regex.Pattern;
 
 /**
  * @Description  pdf识别 工具类
- * @Author ChenWenJie
- * @Data 2023/04/28 2:55 下午
+ * @Author ChenJie
  **/
 @Slf4j
 public class PdfIdentifyUtil {

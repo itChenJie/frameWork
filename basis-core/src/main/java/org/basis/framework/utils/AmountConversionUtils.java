@@ -6,8 +6,7 @@ import java.math.BigDecimal;
 
 /**
  * @Description 金额元分之间转换工具类
- * @Author ChenWenJie
- * @Data 2021/6/11 2:50 下午
+ * @Author ChenJie
  **/
 @Slf4j
 public class AmountConversionUtils {

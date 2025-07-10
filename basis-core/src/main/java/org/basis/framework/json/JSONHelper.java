@@ -11,8 +11,7 @@ import java.util.*;
 /**
  * @Description JSON格式处理类
  * 将List数据集转成JSON字符串
- * @Author ChenWenJie
- * @Data 2021/7/4 5:03 下午
+ * @Author ChenJie
  **/
 public class JSONHelper {
     private static final Logger LOGGER = LoggerFactory

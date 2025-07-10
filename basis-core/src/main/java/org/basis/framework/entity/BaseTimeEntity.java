@@ -9,8 +9,7 @@ import java.util.Date;
 
 /**
  * @Description
- * @Author ChenWenJie
- * @Data 2021/7/4 5:06 下午
+ * @Author ChenJie
  **/
 @Data
 public class BaseTimeEntity {

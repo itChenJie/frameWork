@@ -8,8 +8,7 @@ import javax.validation.ConstraintValidatorContext;
 
 /**
  * @Description 自定义身份证验证器
- * @Author ChenWenJie
- * @Data 2021/9/26 3:29 下午
+ * @Author ChenJie
  **/
 public class IdentityCardNumberValidator implements ConstraintValidator<IdentityCardNumber, Object> {
 

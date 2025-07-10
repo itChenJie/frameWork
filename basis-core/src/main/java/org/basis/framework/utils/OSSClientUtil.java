@@ -23,8 +23,7 @@ import java.util.Random;
 
 /**
  * @Description OSS 工具类
- * @Author ChenWenJie
- * @Data 2021/6/11 2:55 下午
+ * @Author ChenJie
  **/
 @Slf4j
 public class OSSClientUtil {

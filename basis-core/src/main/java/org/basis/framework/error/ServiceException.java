@@ -2,8 +2,7 @@ package org.basis.framework.error;
 
 /**
  * @Description
- * @Author ChenWenJie
- * @Data 2021/12/7 4:59 下午
+ * @Author ChenJie
  **/
 public class ServiceException extends BaseException{
 

@@ -4,8 +4,7 @@ import java.util.List;
 
 /**
  * @Description pdf识别 规则
- * @Author ChenWenJie
- * @Data 2023/04/28 2:55 下午
+ * @Author ChenJie
  **/
 public class IdentifyRegexConfig {
     /**

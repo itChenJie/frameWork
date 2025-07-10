@@ -4,8 +4,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * @Description
- * @Author ChenWenJie
- * @Data 2021/12/29 2:33 下午
+ * @Author ChenJie
  **/
 @NoArgsConstructor
 public class BaseResponse<T> {

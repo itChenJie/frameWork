@@ -11,8 +11,7 @@ import java.util.stream.Stream;
 /**
  * @Description
  * jwt登录token认证
- * @Author ChenWenJie
- * @Data 2021/8/27 5:56 下午
+ * @Author ChenJie
  **/
 public abstract class JwtHandler {
     public static final String AUTHORIZATION = "Authorization";

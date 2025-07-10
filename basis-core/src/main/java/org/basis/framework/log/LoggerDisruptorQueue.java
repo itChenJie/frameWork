@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 /**
  *@Description
  *   日志处理队列
- *@Author ChenWenJie
+ *@Author ChenJie
  *@Data 2021/11/24 5:08 下午
  **/
 public class LoggerDisruptorQueue {

@@ -4,8 +4,7 @@ import lombok.Data;
 
 /**
  * @Description 带泛型的api返回结果
- * @Author ChenWenJie
- * @Data 2021/7/4 5:03 下午
+ * @Author ChenJie
  **/
 @Data
 public class JsonReturnApi<T> {

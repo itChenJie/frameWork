@@ -13,8 +13,7 @@ import java.util.Map;
 /**
  * @Description
  * 自动生成MyBatis的实体类、实体映射XML文件、Mapper
- * @Author ChenWenJie
- * @Data 2021/7/4 5:03 下午
+ * @Author ChenJie
  **/
 public class EntityUtil {
     private static final Logger logger = LoggerFactory.getLogger(EntityUtil.class);

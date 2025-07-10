@@ -10,8 +10,7 @@ import java.util.HashMap;
 
 /**
  * @Description 集中异常所有处理
- * @Author ChenWenJie
- * @Data 2021/6/28 5:05 下午
+ * @Author ChenJie
  **/
 @Slf4j
 //@RestControllerAdvice(basePackages = "")

@@ -14,8 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * @异常拦截
- * @Author ChenWenJie
- * @Data 2021/8/27 5:56 下午
+ * @Author ChenJie
  **/
 @ControllerAdvice
 @ResponseBody

@@ -14,8 +14,7 @@ import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombi
 
 /**
  * @Description 汉字转拼音工具
- * @Author ChenWenJie
- * @Data 2020/11/21 3:23 下午
+ * @Author ChenJie
  **/
 public class PinyinUtils {
 

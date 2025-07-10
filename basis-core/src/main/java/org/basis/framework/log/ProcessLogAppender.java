@@ -14,7 +14,7 @@ import java.text.DateFormat;
  * Log附加程序，对控制台日志进行处理
  * 使用Spring 注入的方式添加，也可以使用 extends Filter<ILoggingEvent> 进行配置，
  * 但存在问题 logback Filter 加载顺序太靠前，导致无法使用 bean
- * @author ChenWenJie
+ * @author ChenJie
  * @since 2021/11/24 10:11
  */
 public class ProcessLogAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
