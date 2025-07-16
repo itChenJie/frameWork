@@ -1,4 +1,4 @@
-package org.basis.framework.utils.regexp;
+package org.basis.framework.regexp;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

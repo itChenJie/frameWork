@@ -5,7 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.basis.framework.utils.regexp.RegexpUtil;
+import org.basis.framework.regexp.RegexpUtil;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

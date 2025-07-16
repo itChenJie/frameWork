@@ -5,7 +5,7 @@ package org.basis.framework.page;
  * @Description
  * @Author ChenJie
  **/
-public class Constant {
+public class PageConstant {
     /**
      * 当前页码
      */

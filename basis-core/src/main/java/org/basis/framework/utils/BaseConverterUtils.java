@@ -1,4 +1,4 @@
-package org.basis.framework.type;
+package org.basis.framework.utils;
 
 /**
  * @Description 基本类型的转换工具类

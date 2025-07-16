@@ -62,20 +62,20 @@
 
 
   <!-- 使用分发管理将本项目打成jar包，直接上传到指定服务器（私服） -->
-  <distributionManagement>
-    <!--正式版本-->
-    <repository>
-      <!-- setting.xml中配置私服用户名和密码 -->
-      <id>nexus</id>
-      <name>Releases</name>
-      <url>http://175.24.244.56:8081/repository/maven-releases/</url>
-    </repository>
-    <!--快照版本-->
-    <snapshotRepository>
-      <!-- setting.xml中配置私服用户名和密码 -->
-      <id>nexus</id>
-      <name>Snapshots</name>
-      <url>http://175.24.244.56:8081/repository/maven-snapshots/</url>
-    </snapshotRepository>
-  </distributionManagement>
+<!--  <distributionManagement>-->
+<!--    &lt;!&ndash;正式版本&ndash;&gt;-->
+<!--    <repository>-->
+<!--      &lt;!&ndash; setting.xml中配置私服用户名和密码 &ndash;&gt;-->
+<!--      <id>nexus</id>-->
+<!--      <name>Releases</name>-->
+<!--      <url>http://127.0.0.1:8081/repository/maven-releases/</url>-->
+<!--    </repository>-->
+<!--    &lt;!&ndash;快照版本&ndash;&gt;-->
+<!--    <snapshotRepository>-->
+<!--      &lt;!&ndash; setting.xml中配置私服用户名和密码 &ndash;&gt;-->
+<!--      <id>nexus</id>-->
+<!--      <name>Snapshots</name>-->
+<!--      <url>http://127.0.0.1:8081/repository/maven-snapshots/</url>-->
+<!--    </snapshotRepository>-->
+<!--  </distributionManagement>-->
 </project>
